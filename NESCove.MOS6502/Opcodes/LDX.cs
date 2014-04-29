@@ -2,14 +2,13 @@
 
 namespace NESCove.MOS6502.Opcodes
 {
-    public class LDA : OpcodeBase
+    public class LDX : OpcodeBase
     {
-        public LDA(IAddressingType addressing)
+        public LDX(IAddressingType addressing)
             : base(addressing)
         {
 
         }
-
 
         public override void Execute(C6502 cpu, ushort parameter)
         {
@@ -22,7 +21,7 @@ namespace NESCove.MOS6502.Opcodes
                 cpu.SetFlag(StatusFlags.Zero);
             else
                 cpu.ResetFlag(StatusFlags.Zero);
-            cpu.RegA = operand;
+            cpu.RegX = operand;
         }
     }
 }

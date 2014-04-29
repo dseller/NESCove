@@ -9,7 +9,7 @@ namespace NESCove.MOS6502
 {
     public class TestMemoryProvider : IMemoryProvider 
     {
-        private byte[] _testArray = new byte[0x1000];
+        private byte[] _testArray = new byte[0xFFFF];
 
         public byte this[ushort address]
         {

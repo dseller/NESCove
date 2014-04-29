@@ -9,7 +9,7 @@ namespace NESCove.MOS6502.Opcodes
 {
     public abstract class OpcodeBase : IOpcode
     {
-        protected IAddressingType AddressingType { get; set; }
+        public IAddressingType AddressingType { get; set; }
 
         protected OpcodeBase(IAddressingType addressing)
         {

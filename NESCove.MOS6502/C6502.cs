@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NESCove.Core;
+using NESCove.MOS6502.Opcodes;
 
 namespace NESCove.MOS6502
 {
@@ -18,7 +19,7 @@ namespace NESCove.MOS6502
         public Byte RegX { get; set; }
         public Byte RegY { get; set; }
 
-        public IMemoryProvider Memory { get; private set; }
+        public IMemoryProvider Memory { get; set; }
 
         public bool IsFlagSet(StatusFlags flag)
         {
@@ -33,6 +34,45 @@ namespace NESCove.MOS6502
         public void ResetFlag(StatusFlags flag)
         {
             ProcessorStatus &= ~flag;
+        }
+
+        public void Step()
+        {
+            // Test code for testing the MOS6502 processor (NES version)
+            // Bank switching / MMC must be implemented later.
+
+            byte opcode = Memory[ProgramCounter++];
+
+            IOpcode opcodeHandler = OpcodeFactory.GetOpcode(opcode);
+            if (opcodeHandler == null)
+                throw new Exception(string.Format("Opcode {0:X2} not implemented yet", opcode));
+
+            ushort parameter = 0;
+            if (opcodeHandler.AddressingType.ParameterSize.HasValue)
+            {
+                // Hacky quick and dirty way to retrieve parameters. Note the endianness, might need to modify this later (DS)
+                if (opcodeHandler.AddressingType.ParameterSize.Value == 1)
+                    parameter = Memory[ProgramCounter++];
+                else if (opcodeHandler.AddressingType.ParameterSize.Value == 2)
+                {
+                    byte p1 = Memory[ProgramCounter++];
+                    byte p2 = Memory[ProgramCounter++];
+                    parameter = (ushort) (p2 << 8 | p1);
+                }
+                    
+            }
+
+            opcodeHandler.Execute(this, parameter);
+        }
+
+        public override string ToString()
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.AppendFormat("=======================================\r\n");
+            builder.AppendFormat("  PC = {0:X4}\tSP= {1:X2}\r\n", ProgramCounter, StackPointer);
+            builder.AppendFormat("   A = {0:X2}\tX = {1:X2}\t\tY = {2:X2}\r\n", RegA, RegX, RegY);
+            builder.AppendFormat("=======================================\r\n\r\n");
+            return builder.ToString();
         }
     }
 }
