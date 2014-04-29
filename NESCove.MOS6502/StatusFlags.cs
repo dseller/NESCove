@@ -11,7 +11,7 @@ namespace NESCove.MOS6502
         DecimalMode = 0x08,
         Break = 0x10,
         RESERVED = 0x20,
-        Overvlow = 0x40,
+        Overflow = 0x40,
         Negative = 0x80
     }
 }
