@@ -16,6 +16,23 @@ namespace NESCove.MOS6502.Opcodes
             AddressingType = addressing;
         }
 
+        protected void SetNegative(C6502 cpu, byte operand)
+        {
+            if (operand > 0x7F)
+                cpu.SetFlag(StatusFlags.Negative);
+            else
+                cpu.ResetFlag(StatusFlags.Negative);
+        }
+
+        protected void SetZero(C6502 cpu, byte operand)
+        {
+            if (operand == 0)
+                cpu.SetFlag(StatusFlags.Zero);
+            else
+                cpu.ResetFlag(StatusFlags.Zero);
+        }
+
+
         public abstract void Execute(C6502 cpu, ushort parameter);
     }
 }

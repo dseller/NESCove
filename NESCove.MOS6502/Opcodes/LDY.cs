@@ -13,14 +13,8 @@ namespace NESCove.MOS6502.Opcodes
         public override void Execute(C6502 cpu, ushort parameter)
         {
             byte operand = AddressingType.GetOperand(cpu, parameter);
-            if (operand > 0x7F)
-                cpu.SetFlag(StatusFlags.Negative);
-            else
-                cpu.ResetFlag(StatusFlags.Negative);
-            if (operand == 0)
-                cpu.SetFlag(StatusFlags.Zero);
-            else
-                cpu.ResetFlag(StatusFlags.Zero);
+            SetNegative(cpu, operand);
+            SetZero(cpu, operand); 
             cpu.RegY = operand;
         }
     }

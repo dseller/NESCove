@@ -58,6 +58,13 @@
     <Compile Include="Opcodes\LDY.cs" />
     <Compile Include="Opcodes\OpcodeBase.cs" />
     <Compile Include="Opcodes\OpcodeFactory.cs" />
+    <Compile Include="Opcodes\STA.cs" />
+    <Compile Include="Opcodes\TAX.cs" />
+    <Compile Include="Opcodes\TAY.cs" />
+    <Compile Include="Opcodes\TSX.cs" />
+    <Compile Include="Opcodes\TXA.cs" />
+    <Compile Include="Opcodes\TXS.cs" />
+    <Compile Include="Opcodes\TYA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatusFlags.cs" />
     <Compile Include="TestMemoryProvider.cs" />

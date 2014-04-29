@@ -32,6 +32,13 @@ namespace NESCove.MOS6502.Opcodes
             _opcodes.Add(0xB4, new LDY(new ZeroPageIndexedXAddressing()));
             _opcodes.Add(0xAC, new LDY(new AbsoluteAddressing()));
             _opcodes.Add(0xBC, new LDY(new IndexedXAddressing()));
+            // TAX, TAY, TSX, TXA, TXS, TYA
+            _opcodes.Add(0xAA, new TAX(new ImpliedAddressing()));
+            _opcodes.Add(0xA8, new TAY(new ImpliedAddressing()));
+            _opcodes.Add(0xBA, new TSX(new ImpliedAddressing()));
+            _opcodes.Add(0x8A, new TXA(new ImpliedAddressing()));
+            _opcodes.Add(0x9A, new TXS(new ImpliedAddressing()));
+            _opcodes.Add(0x98, new TYA(new ImpliedAddressing()));
         }
 
         public static IOpcode GetOpcode(byte opcode)
