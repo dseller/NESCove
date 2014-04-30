@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NESCove.Core;
 using NESCove.MOS6502.Opcodes;
+using System.Diagnostics;
 
 namespace NESCove.MOS6502
 {
@@ -64,7 +65,16 @@ namespace NESCove.MOS6502
                     parameter = DataHelper.CompositeInteger(Memory, ProgramCounter, parameterSize);
                     ProgramCounter += parameterSize;
                 }
-                opcodeHandler.Execute(this, parameter);
+                try
+                {
+                    opcodeHandler.Execute(this, parameter);
+                }
+                catch (OpcodeExecutionException oee)
+                {
+                    Debug.Fail(String.Format("OEE Failure executing opcode {0:X2}", Opcode),
+                                oee.ToString() + "\r\n" + ToString());
+                    throw new Exception(String.Format("OEE Failure executing opcode {0:X2}", Opcode), oee);
+                }
             }
             else if (iterations > 1)
             {

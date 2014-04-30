@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="DataHelper.cs" />
     <Compile Include="IMemoryProvider.cs" />
+    <Compile Include="OpcodeExecutionException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
