@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NESCove.MOS6502", "NESCove.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{37476E47-EA8F-4483-AB86-25751A8A49D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unit Tests", "Unit Tests\Unit Tests.csproj", "{897D3B63-4864-4485-BD4C-5DB4135BA1AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{37476E47-EA8F-4483-AB86-25751A8A49D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37476E47-EA8F-4483-AB86-25751A8A49D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37476E47-EA8F-4483-AB86-25751A8A49D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{897D3B63-4864-4485-BD4C-5DB4135BA1AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{897D3B63-4864-4485-BD4C-5DB4135BA1AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{897D3B63-4864-4485-BD4C-5DB4135BA1AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{897D3B63-4864-4485-BD4C-5DB4135BA1AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

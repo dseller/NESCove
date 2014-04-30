@@ -36,33 +36,36 @@ namespace NESCove.MOS6502
             ProcessorStatus &= ~flag;
         }
 
-        public void Step()
+        public void Step(int iterations = 1)
         {
             // Test code for testing the MOS6502 processor (NES version)
             // Bank switching / MMC must be implemented later.
-
-            byte opcode = Memory[ProgramCounter++];
-
-            IOpcode opcodeHandler = OpcodeFactory.GetOpcode(opcode);
-            if (opcodeHandler == null)
-                throw new Exception(string.Format("Opcode {0:X2} not implemented yet", opcode));
-
-            ushort parameter = 0;
-            if (opcodeHandler.AddressingType.ParameterSize.HasValue)
+            if (iterations == 1)
             {
-                // Hacky quick and dirty way to retrieve parameters. Note the endianness, might need to modify this later (DS)
-                if (opcodeHandler.AddressingType.ParameterSize.Value == 1)
-                    parameter = Memory[ProgramCounter++];
-                else if (opcodeHandler.AddressingType.ParameterSize.Value == 2)
-                {
-                    byte p1 = Memory[ProgramCounter++];
-                    byte p2 = Memory[ProgramCounter++];
-                    parameter = (ushort) (p2 << 8 | p1);
-                }
-                    
-            }
+                byte opcode = Memory[ProgramCounter++];
 
-            opcodeHandler.Execute(this, parameter);
+                IOpcode opcodeHandler = OpcodeFactory.GetOpcode(opcode);
+                if (opcodeHandler == null)
+                    throw new Exception(string.Format("Opcode {0:X2} not implemented yet", opcode));
+
+                ushort parameter = 0;
+                if (opcodeHandler.AddressingType.ParameterSize.HasValue)
+                {
+                    // Hacky quick and dirty way to retrieve parameters. Note the endianness, might need to modify this later (DS)
+                    // Hope this is satisfactory (JL)
+                    var parameterSize = opcodeHandler.AddressingType.ParameterSize.Value;
+                    parameter = DataHelper.CompositeInteger(Memory, ProgramCounter, parameterSize);
+                    ProgramCounter += parameterSize;
+                }
+                opcodeHandler.Execute(this, parameter);
+            }
+            else if (iterations > 1)
+            {
+                for (int iteration = 0; iteration < iterations; iteration++)
+                {
+                    Step();
+                }
+            }
         }
 
         public override string ToString()

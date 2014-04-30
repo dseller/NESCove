@@ -16,5 +16,13 @@ namespace NESCove.MOS6502
             get { return _testArray[address]; }
             set { _testArray[address] = value; }
         }
+
+        /// <summary>
+        /// Creates a new test array
+        /// </summary>
+        public void Blank()
+        {
+            _testArray = new byte[0xFFFF];
+        }
     }
 }

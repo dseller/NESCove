@@ -35,14 +35,14 @@ namespace TestApp
             c.Memory[0x47] = 0x20;
             c.Memory[0x2005] = 0xFF;
             c.Memory[0x09] = 0xA1;
-            c.Memory[0x0A] = 0x40;
+            c.Memory[0x0A] = 0x46;
 
             // Load Y immediate
             c.Memory[0x0B] = 0xA0;
             c.Memory[0x0C] = 0x04;
 
             // Post-Indexed Indirect Addressing
-            c.Memory[0x48] = 0x15;
+            c.Memory[0x48] = 0x19;
             c.Memory[0x49] = 0x32;
             c.Memory[0x3219] = 0xCF;
             c.Memory[0x0D] = 0xB1;
@@ -116,7 +116,7 @@ namespace TestApp
             c.Step();
             c.Step();
             Console.Write(c.ToString());
-
+            Console.ReadKey();
         }
     }
 }
