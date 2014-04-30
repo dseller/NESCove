@@ -10,6 +10,9 @@ namespace NESCove.MOS6502
 {
     public class C6502
     {
+        // Not sure where we should be putting these types of constants
+        public const int PageSize = 256;
+
         // Special Purpose Registers
         public UInt16 ProgramCounter { get; set; }
         public Byte StackPointer { get; set; }      // Stack is at 0x0100 - 0x01FF. 

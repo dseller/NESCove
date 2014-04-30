@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NESCove.MOS6502", "NESCove.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{37476E47-EA8F-4483-AB86-25751A8A49D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unit Tests", "Unit Tests\Unit Tests.csproj", "{897D3B63-4864-4485-BD4C-5DB4135BA1AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "Unit Tests\UnitTests.csproj", "{897D3B63-4864-4485-BD4C-5DB4135BA1AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

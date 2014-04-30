@@ -32,7 +32,12 @@ namespace NESCove.MOS6502.Opcodes
                 cpu.ResetFlag(StatusFlags.Zero);
         }
 
+        public Boolean IsSamePage(ushort address, ushort addressB)
+        {
+            return (int)(address / C6502.PageSize) == (int)(addressB / C6502.PageSize);
+        }
 
-        public abstract void Execute(C6502 cpu, ushort parameter);
+
+        public abstract int Execute(C6502 cpu, ushort parameter);
     }
 }
