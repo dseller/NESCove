@@ -8,6 +8,11 @@ namespace NESCove.Core
 {
     public class OpcodeExecutionException : ApplicationException
     {
+        public OpcodeExecutionException()
+            :base("Opcode execution exception")
+        {
+        }
+
         public OpcodeExecutionException(String message)
             : base(message) { }
 

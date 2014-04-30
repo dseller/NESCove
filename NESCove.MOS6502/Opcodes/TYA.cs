@@ -15,7 +15,7 @@ namespace NESCove.MOS6502.Opcodes
             SetNegative(cpu, operand);
             SetZero(cpu, operand);
             cpu.RegA = operand;
-            return 0;
+            return 2;
         }
     }
 }

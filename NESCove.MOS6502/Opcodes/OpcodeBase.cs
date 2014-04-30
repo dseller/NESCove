@@ -37,6 +37,10 @@ namespace NESCove.MOS6502.Opcodes
             return (int)(address / C6502.PageSize) == (int)(addressB / C6502.PageSize);
         }
 
+        public int CalculateExtraCycles(int addressA, int addressB, Boolean branch = false)
+        {
+            return (IsSamePage((ushort)addressA, (ushort)addressB) ? 0 : 1) + (branch ? 1 : 0);
+        }
 
         public abstract int Execute(C6502 cpu, ushort parameter);
     }

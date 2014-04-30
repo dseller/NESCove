@@ -28,7 +28,7 @@ namespace NESCove.MOS6502.Opcodes
                 case 0x81: return 6;
                 case 0x91: return 5; // +1 boundary
             }
-            throw new OpcodeExecutionException("Invalid opcode for STA execution");
+            throw new OpcodeExecutionException();
         }
     }
 }
