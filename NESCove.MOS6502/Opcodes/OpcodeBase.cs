@@ -16,6 +16,10 @@ namespace NESCove.MOS6502.Opcodes
             AddressingType = addressing;
         }
 
+        // Aren't these directly mapped to the state of the Accumulator ?
+        // The highest order bit from the accumulator is the negative flag,
+        // And a NAND on all the bits of the accumulator would be the zero flag
+        // So these should just be updated when the accumulator is set, right?
         protected void SetNegative(C6502 cpu, byte operand)
         {
             if (operand > 0x7F)
