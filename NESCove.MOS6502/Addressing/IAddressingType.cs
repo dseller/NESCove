@@ -20,5 +20,10 @@ namespace NESCove.MOS6502.Addressing
         /// <param name="parameter">The parameter from the instruction.</param>
         /// <returns></returns>
         byte GetOperand(C6502 cpu, UInt16 parameter);
+
+        /// <summary>
+        /// Addressing Type Enum
+        /// </summary>
+        EnumAddressingType TypeEnum { get; }
     }
 }

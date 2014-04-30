@@ -17,5 +17,13 @@ namespace NESCove.MOS6502.Addressing
             UInt16 address2 = (ushort) ((b2 << 8) | b1);
             return cpu.Memory[address2];
         }
+
+        public EnumAddressingType TypeEnum
+        {
+            get
+            {
+                return EnumAddressingType.PreIndexedIndirect;
+            }
+        }
     }
 }

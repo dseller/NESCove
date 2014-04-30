@@ -7,5 +7,13 @@
         {
             return cpu.Memory[(ushort)(cpu.RegY + parameter)];
         }
+
+        public EnumAddressingType TypeEnum
+        {
+            get
+            {
+                return EnumAddressingType.Indexed;
+            }
+        }
     }
 }

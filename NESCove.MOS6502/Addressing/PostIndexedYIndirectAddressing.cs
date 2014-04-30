@@ -13,5 +13,13 @@ namespace NESCove.MOS6502.Addressing
             UInt16 dataFromMemory = (ushort)((b2 << 8) | b1);
             return cpu.Memory[(ushort) (dataFromMemory + cpu.RegY)];
         }
+
+        public EnumAddressingType TypeEnum
+        {
+            get
+            {
+                return EnumAddressingType.PostIndexedIndirect;
+            }
+        }
     }
 }

@@ -13,5 +13,13 @@ namespace NESCove.MOS6502.Addressing
         {
             return cpu.Memory[(ushort)(cpu.RegY + (parameter & 0xFF))];
         }
+
+        public EnumAddressingType TypeEnum
+        {
+            get
+            {
+                return EnumAddressingType.ZeroPageIndexed;
+            }
+        }
     }
 }

@@ -8,5 +8,13 @@ namespace NESCove.MOS6502.Addressing
         {
             return (byte) (parameter & 0xFF);
         }
+
+        public EnumAddressingType TypeEnum
+        {
+            get
+            {
+                return EnumAddressingType.Immediate;
+            }
+        }
     }
 }
