@@ -18,8 +18,8 @@ namespace NESCove.MOS6502.Opcodes
             _opcodes.Add(0xAD, new LDA(new AbsoluteAddressing()));
             _opcodes.Add(0xBD, new LDA(new IndexedXAddressing()));
             _opcodes.Add(0xB9, new LDA(new IndexedYAddressing()));
-            _opcodes.Add(0xA1, new LDA(new PreIndexedIndirectAddressing()));
-            _opcodes.Add(0xB1, new LDA(new PostIndexedIndirectAddressing()));
+            _opcodes.Add(0xA1, new LDA(new PreIndexedXIndirectAddressing()));
+            _opcodes.Add(0xB1, new LDA(new PostIndexedYIndirectAddressing()));
             // LDX
             _opcodes.Add(0xA2, new LDX(new ImmediateAddressing()));
             _opcodes.Add(0xA6, new LDX(new ZeroPageAddressing()));
