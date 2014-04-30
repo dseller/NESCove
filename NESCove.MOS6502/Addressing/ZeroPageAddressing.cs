@@ -10,13 +10,5 @@ namespace NESCove.MOS6502.Addressing
             UInt16 address = (UInt16) (parameter & 0xFF);
             return cpu.Memory[address];
         }
-
-        public EnumAddressingType TypeEnum
-        {
-            get
-            {
-                return EnumAddressingType.ZeroPage;
-            }
-        }
     }
 }

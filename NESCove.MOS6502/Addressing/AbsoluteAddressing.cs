@@ -7,13 +7,5 @@
         {
             return cpu.Memory[parameter];
         }
-
-        public EnumAddressingType TypeEnum
-        {
-            get
-            {
-                return EnumAddressingType.Absoloute;
-            }
-        }
     }
 }

@@ -11,14 +11,6 @@ namespace NESCove.MOS6502.Addressing
         {
             return 0;
         }
-
-        public EnumAddressingType TypeEnum
-        {
-            get
-            {
-                return EnumAddressingType.Implied;
-            }
-        }
     }
 }
  

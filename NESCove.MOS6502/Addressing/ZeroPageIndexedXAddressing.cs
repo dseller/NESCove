@@ -7,13 +7,5 @@
         {
             return cpu.Memory[(ushort)(cpu.RegX + (parameter & 0xFF))];
         }
-
-        public EnumAddressingType TypeEnum
-        {
-            get
-            {
-                return EnumAddressingType.ZeroPageIndexed;
-            }
-        }
     }
 }

@@ -40,14 +40,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Addressing\AbsoluteAddressing.cs" />
-    <Compile Include="Addressing\EnumAddressingType.cs" />
     <Compile Include="Addressing\IAddressingType.cs" />
     <Compile Include="Addressing\ImmediateAddressing.cs" />
     <Compile Include="Addressing\ImpliedAddressing.cs" />
     <Compile Include="Addressing\IndexedXAddressing.cs" />
     <Compile Include="Addressing\IndexedYAddressing.cs" />
-    <Compile Include="Addressing\PostIndexedYIndirectAddressing.cs" />
-    <Compile Include="Addressing\PreIndexedXIndirectAddressing.cs" />
+    <Compile Include="Addressing\PostIndexedIndirectAddressing.cs" />
+    <Compile Include="Addressing\PreIndexedIndirectAddressing.cs" />
     <Compile Include="Addressing\ZeroPageAddressing.cs" />
     <Compile Include="Addressing\ZeroPageIndexedXAddressing.cs" />
     <Compile Include="Addressing\ZeroPageIndexedYAddressing.cs" />
