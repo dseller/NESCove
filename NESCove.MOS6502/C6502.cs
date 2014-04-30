@@ -21,6 +21,10 @@ namespace NESCove.MOS6502
         public Byte RegA { get; set; }
         public Byte RegX { get; set; }
         public Byte RegY { get; set; }
+        /// <summary>
+        /// Last read opcode
+        /// </summary>
+        public Byte Opcode { get; private set; }
 
         public IMemoryProvider Memory { get; set; }
 
@@ -45,11 +49,11 @@ namespace NESCove.MOS6502
             // Bank switching / MMC must be implemented later.
             if (iterations == 1)
             {
-                byte opcode = Memory[ProgramCounter++];
+                Opcode = Memory[ProgramCounter++];
 
-                IOpcode opcodeHandler = OpcodeFactory.GetOpcode(opcode);
+                IOpcode opcodeHandler = OpcodeFactory.GetOpcode(Opcode);
                 if (opcodeHandler == null)
-                    throw new Exception(string.Format("Opcode {0:X2} not implemented yet", opcode));
+                    throw new Exception(string.Format("Opcode {0:X2} not implemented yet", Opcode));
 
                 ushort parameter = 0;
                 if (opcodeHandler.AddressingType.ParameterSize.HasValue)
