@@ -208,6 +208,16 @@ namespace Unit_Tests
             c.Step(2);
             Assert.AreEqual(c.State.RegY, 0xFF, "Loading value of X (0xFF) into memory @ address 0xDEAD.");
         }
+        
+        [TestMethod]
+        public void C6502_Execute_SEI()
+        {
+            var c = CreateTestCPU();
+            c.Memory[0x00] = 0x78;
+            c.Step();
+
+            Assert.IsTrue((c.State.Parameter | (byte)StatusFlags.InterruptDisable) != 0, "Setting interrupt disable flag to TRUE");
+        }
 
         private IBasicCPU<byte, byte, ushort> CreateTestCPU()
         {

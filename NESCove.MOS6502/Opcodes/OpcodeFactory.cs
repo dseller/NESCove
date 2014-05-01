@@ -55,6 +55,14 @@ namespace NESCove.MOS6502.Opcodes
             _opcodes.Add(0x84, new STY(new ZeroPageAddressing()));
             _opcodes.Add(0x94, new STY(new ZeroPageIndexedXAddressing()));
             _opcodes.Add(0x8C, new STY(new AbsoluteAddressing()));
+            // CLC, CLD, CLI, CLV, SEC, SED, SEI
+            _opcodes.Add(0x18, new CLC(new ImpliedAddressing()));
+            _opcodes.Add(0xD8, new CLD(new ImpliedAddressing()));
+            _opcodes.Add(0x58, new CLI(new ImpliedAddressing()));
+            _opcodes.Add(0xB8, new CLV(new ImpliedAddressing()));
+            _opcodes.Add(0x38, new SEC(new ImpliedAddressing()));
+            _opcodes.Add(0xF8, new SED(new ImpliedAddressing()));
+            _opcodes.Add(0x78, new SEI(new ImpliedAddressing()));
         }
 
         public static IOpcode GetOpcode(byte opcode)
