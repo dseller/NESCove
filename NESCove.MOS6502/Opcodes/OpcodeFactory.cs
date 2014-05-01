@@ -88,6 +88,16 @@ namespace NESCove.MOS6502.Opcodes
             _opcodes.Add(0x20, new JSR(new AbsoluteAddressing()));
             _opcodes.Add(0x60, new RTS(new ImpliedAddressing()));
             _opcodes.Add(0x40, new RTI(new ImpliedAddressing()));
+            // ADC
+            _opcodes.Add(0x69, new ADC(new ImmediateAddressing()));
+            _opcodes.Add(0x65, new ADC(new ZeroPageAddressing()));
+            _opcodes.Add(0x75, new ADC(new ZeroPageIndexedXAddressing()));
+            _opcodes.Add(0x6D, new ADC(new AbsoluteAddressing()));
+            _opcodes.Add(0x7D, new ADC(new IndexedXAddressing()));
+            _opcodes.Add(0x79, new ADC(new IndexedYAddressing()));
+            _opcodes.Add(0x61, new ADC(new PreIndexedXIndirectAddressing()));
+            _opcodes.Add(0x71, new ADC(new PostIndexedYIndirectAddressing()));
+
         }
 
         public static IOpcode GetOpcode(byte opcode)

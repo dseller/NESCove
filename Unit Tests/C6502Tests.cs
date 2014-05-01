@@ -366,6 +366,30 @@ namespace Unit_Tests
             Assert.AreEqual(0xFF, c.State.RegA, "Returning from faked interrupt, A should be 0xFF");
         }
 
+        [TestMethod]
+        public void C6502_Execute_ADC_Immediate()
+        {
+            var c = CreateTestCPU();
+            c.Memory[0x00] = 0xA9;
+            c.Memory[0x01] = 0x30;  // load A with 0x30
+            c.Memory[0x02] = 0x69;
+            c.Memory[0x03] = 0x20;  // add 0x20 to A (0x30)
+            c.Step(2);
+            Assert.AreEqual((0x20+0x30), c.State.RegA, "Adding 0x20 to register A (which was 0x20).");
+        }
+
+        [TestMethod]
+        public void C6502_Execute_ADC_With_Carry_Immediate()
+        {
+            var c = CreateTestCPU();
+            c.Memory[0x00] = 0xA9;
+            c.Memory[0x01] = 0xFF;  // load A with 0xFF
+            c.Memory[0x02] = 0x69;
+            c.Memory[0x03] = 0x05;  // add 0x05 to A (0x30)
+            c.Step(2);
+            Assert.AreEqual(0x04, c.State.RegA, "Adding 0x05 to register A (which was 0xFF), testing carry.");
+        }
+
         private IBasicCPU<byte, byte, ushort> CreateTestCPU()
         {
             return (IBasicCPU<byte, byte, ushort>)new C6502();
