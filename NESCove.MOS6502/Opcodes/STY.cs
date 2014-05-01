@@ -1,11 +1,15 @@
-﻿using NESCove.MOS6502.Addressing;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using NESCove.MOS6502.Addressing;
 
 namespace NESCove.MOS6502.Opcodes
 {
-    public class STA : OpcodeBase
+    public class STY : OpcodeBase
     {
-        public STA(IAddressingType addressing) 
+        public STY(IAddressingType addressing) 
             : base(addressing)
         {
 
@@ -17,7 +21,7 @@ namespace NESCove.MOS6502.Opcodes
             if (state == null)
                 throw new Exception("Something BAAAADD happened");
 
-            cpu.Memory[AddressingType.GetAddress(cpu, state.Parameter)] = state.RegA;
+            cpu.Memory[AddressingType.GetAddress(cpu, state.Parameter)] = state.RegY;
 
             // I don't know what the fuck this is but it is 2 everywhere (DS).
             return 2;

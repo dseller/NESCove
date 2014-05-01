@@ -61,6 +61,8 @@
     <Compile Include="Opcodes\OpcodeBase.cs" />
     <Compile Include="Opcodes\OpcodeFactory.cs" />
     <Compile Include="Opcodes\STA.cs" />
+    <Compile Include="Opcodes\STX.cs" />
+    <Compile Include="Opcodes\STY.cs" />
     <Compile Include="Opcodes\TAX.cs" />
     <Compile Include="Opcodes\TAY.cs" />
     <Compile Include="Opcodes\TSX.cs" />

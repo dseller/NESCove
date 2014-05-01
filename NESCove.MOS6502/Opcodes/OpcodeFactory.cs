@@ -39,6 +39,22 @@ namespace NESCove.MOS6502.Opcodes
             _opcodes.Add(0x8A, new TXA(new ImpliedAddressing()));
             _opcodes.Add(0x9A, new TXS(new ImpliedAddressing()));
             _opcodes.Add(0x98, new TYA(new ImpliedAddressing()));
+            // STA
+            _opcodes.Add(0x85, new STA(new ZeroPageAddressing()));
+            _opcodes.Add(0x95, new STA(new ZeroPageIndexedXAddressing()));
+            _opcodes.Add(0x8D, new STA(new AbsoluteAddressing()));
+            _opcodes.Add(0x9D, new STA(new IndexedXAddressing()));
+            _opcodes.Add(0x99, new STA(new IndexedYAddressing()));
+            _opcodes.Add(0x81, new STA(new PreIndexedXIndirectAddressing()));
+            _opcodes.Add(0x91, new STA(new PostIndexedYIndirectAddressing()));
+            // STX
+            _opcodes.Add(0x86, new STX(new ZeroPageAddressing()));
+            _opcodes.Add(0x96, new STX(new ZeroPageIndexedYAddressing()));
+            _opcodes.Add(0x8E, new STX(new AbsoluteAddressing()));
+            // STY
+            _opcodes.Add(0x84, new STY(new ZeroPageAddressing()));
+            _opcodes.Add(0x94, new STY(new ZeroPageIndexedXAddressing()));
+            _opcodes.Add(0x8C, new STY(new AbsoluteAddressing()));
         }
 
         public static IOpcode GetOpcode(byte opcode)

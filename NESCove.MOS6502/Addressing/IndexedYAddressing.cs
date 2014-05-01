@@ -5,7 +5,12 @@
         public byte? ParameterSize { get { return 2; } }
         public byte GetOperand(C6502 cpu, ushort parameter)
         {
-            return cpu.Memory[(ushort)(cpu.State.RegY + parameter)];
+            return cpu.Memory[GetAddress(cpu, parameter)];
+        }
+
+        public ushort GetAddress(C6502 cpu, ushort parameter)
+        {
+            return (ushort) (cpu.State.RegY + parameter);
         }
     }
 }

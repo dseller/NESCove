@@ -116,7 +116,7 @@ namespace Unit_Tests
         }
 
         [TestMethod]
-        public void C6502_Execute_Absoloute_XA()
+        public void C6502_Execute_Absolute_XA()
         {
             var c = CreateTestCPU();
             c.Memory[0x00] = 0xA2;
@@ -131,7 +131,7 @@ namespace Unit_Tests
         }
 
         [TestMethod]
-        public void C6502_Execute_Absoloute_YA()
+        public void C6502_Execute_Absolute_YA()
         {
             var c = CreateTestCPU();
             c.Memory[0x00] = 0xA0;
@@ -145,7 +145,69 @@ namespace Unit_Tests
             Assert.AreEqual(c.State.RegA, 0xFD, "Loading FD into A using Absolute Y Addressing");
         }
 
+        [TestMethod]
+        public void C6502_Execute_STA_Absolute()
+        {
+            // Store value of A (0xFF) in #$DEAD.
+            IBasicCPU<byte, byte, ushort> c = CreateTestCPU();
+            c.Memory[0x00] = 0xA9;
+            c.Memory[0x01] = 0xFF;
+            c.Memory[0x02] = 0x8D; // lol smiley face.
+            c.Memory[0x03] = 0xAD;
+            c.Memory[0x04] = 0xDE;
 
+            c.Step(2);
+            Assert.AreEqual(c.State.RegA, 0xFF, "Loading value of A (0xFF) into memory @ address 0xDEAD.");
+        }
+
+        [TestMethod]
+        public void C6502_Execute_STA_PreIndexedIndirect()
+        {
+            // Store value of A (0xFF) in pointer at location #$2005.
+            var c = CreateTestCPU();
+            c.Memory[0x46] = 0x05;
+            c.Memory[0x47] = 0x20;
+            c.Memory[0x2005] = 0xCC;
+            c.Memory[0x2006] = 0xCC;
+
+            c.Memory[0x00] = 0xA9;
+            c.Memory[0x01] = 0xFF;
+            c.Memory[0x02] = 0x81;
+            c.Memory[0x03] = 0x46;
+            c.Step(2);
+
+            Assert.AreEqual(c.State.RegA, 0xFF, "Loading value of A (0xFF) into memory @ pointer at address 0x2005.");
+        }
+
+        [TestMethod]
+        public void C6502_Execute_STX_Absolute()
+        {
+            // Store value of X (0xFF) in #$DEAD.
+            IBasicCPU<byte, byte, ushort> c = CreateTestCPU();
+            c.Memory[0x00] = 0xA2;
+            c.Memory[0x01] = 0xFF;
+            c.Memory[0x02] = 0x8E; 
+            c.Memory[0x03] = 0xAD;
+            c.Memory[0x04] = 0xDE;
+
+            c.Step(2);
+            Assert.AreEqual(c.State.RegX, 0xFF, "Loading value of X (0xFF) into memory @ address 0xDEAD.");
+        }
+
+        [TestMethod]
+        public void C6502_Execute_STY_Absolute()
+        {
+            // Store value of Y (0xFF) in #$DEAD.
+            IBasicCPU<byte, byte, ushort> c = CreateTestCPU();
+            c.Memory[0x00] = 0xA0;
+            c.Memory[0x01] = 0xFF;
+            c.Memory[0x02] = 0x8C; 
+            c.Memory[0x03] = 0xAD;
+            c.Memory[0x04] = 0xDE;
+
+            c.Step(2);
+            Assert.AreEqual(c.State.RegY, 0xFF, "Loading value of X (0xFF) into memory @ address 0xDEAD.");
+        }
 
         private IBasicCPU<byte, byte, ushort> CreateTestCPU()
         {

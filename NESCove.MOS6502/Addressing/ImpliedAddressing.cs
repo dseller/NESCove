@@ -11,6 +11,11 @@ namespace NESCove.MOS6502.Addressing
         {
             return 0;
         }
+
+        public ushort GetAddress(C6502 cpu, ushort parameter)
+        {
+            return 0;
+        }
     }
 }
  

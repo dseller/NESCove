@@ -52,8 +52,10 @@ namespace NESCove.MOS6502
         {
             State.Opcode = Memory[State.ProgramCounter++];
             IOpcode handler = OpcodeFactory.GetOpcode(State.Opcode);
+            if (handler == null)
+                throw new Exception("Opcode not implemented!");
             var operand = GetOperandSafe(handler);
-            return handler.Execute(this, operand);
+            return handler.Execute(this, operand );
         }
 
         public int Step(int iterations = 1)

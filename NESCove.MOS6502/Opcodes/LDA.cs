@@ -1,4 +1,5 @@
-﻿using NESCove.Core;
+﻿using System;
+using NESCove.Core;
 using NESCove.MOS6502.Addressing;
 
 namespace NESCove.MOS6502.Opcodes
