@@ -32,7 +32,7 @@ namespace NESCove.Core
         public byte StackPointer  // Stack is at 0x0100 - 0x01FF. 
         {
             get { return _SP; }
-            set                   // We can also use this for StackOverflow/Underrun (If 6502 supports it)
+            set                   
             {
                 _SP = value;
                 UpdateALUFlags(_SP);

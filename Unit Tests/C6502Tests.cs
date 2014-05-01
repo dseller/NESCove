@@ -147,9 +147,9 @@ namespace Unit_Tests
 
 
 
-        private C6502 CreateTestCPU()
+        private I6502 CreateTestCPU()
         {
-            C6502 cpu = new C6502();
+            var cpu = new C6502();
             return cpu;
         }
 
