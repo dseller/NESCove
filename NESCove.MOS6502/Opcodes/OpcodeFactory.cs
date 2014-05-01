@@ -77,6 +77,11 @@ namespace NESCove.MOS6502.Opcodes
             _opcodes.Add(0xD6, new DEC(new ZeroPageIndexedXAddressing()));
             _opcodes.Add(0xCE, new DEC(new AbsoluteAddressing()));
             _opcodes.Add(0xDE, new DEC(new IndexedXAddressing()));
+            // PHA, PHP, PLA, PLP
+            _opcodes.Add(0x48, new PHA(new ImpliedAddressing()));
+            _opcodes.Add(0x08, new PHP(new ImpliedAddressing()));
+            _opcodes.Add(0x68, new PLA(new ImpliedAddressing()));
+            _opcodes.Add(0x28, new PLP(new ImpliedAddressing()));
         }
 
         public static IOpcode GetOpcode(byte opcode)

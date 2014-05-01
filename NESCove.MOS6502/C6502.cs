@@ -78,6 +78,18 @@ namespace NESCove.MOS6502
             return cost;
         }
 
+        public void Push(byte value)
+        {
+            Memory[0x01FF - State.StackPointer] = value;
+            State.StackPointer--;
+        }
+
+        public byte Pop()
+        {
+            State.StackPointer++;
+            return (byte) Memory[0x01FF - State.StackPointer];
+        }
+
         public override string ToString()
         {
             /*

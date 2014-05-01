@@ -28,5 +28,8 @@ namespace NESCove.Core
         /// <param name="iterations">What do you think it does, SRSLY</param>
         /// <returns>The amount of cycles that were spent running this operation</returns>
         int Step(int iterations = 1);
+
+        void Push(byte value);
+        byte Pop();
     }
 }

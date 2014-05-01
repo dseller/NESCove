@@ -30,6 +30,7 @@ namespace NESCove.Core
         /// Index of stack pointer
         /// </summary>
         byte StackPointer { get; set; }
+        byte ProcessorStatus { get; set; }
         W RegA { get; set; }
         W RegX { get; set; }
         W RegY { get; set; }

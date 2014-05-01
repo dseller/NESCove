@@ -12,6 +12,12 @@ namespace NESCove.MOS6502
     /// </summary>
     public class ExecutionState : IBasicState<byte, byte, ushort>
     {
+        public ExecutionState()
+        {
+            // Stack pointer is initialized by ROM.
+            // StackPointer = 0xFF;
+        }
+
         /// <summary>
         /// Last read Opcode
         /// </summary>
@@ -24,7 +30,7 @@ namespace NESCove.MOS6502
         /// CPU Program Counter (Pointer to next instruction)
         /// </summary>
         public ushort ProgramCounter { get; set; }
-        private StatusFlags ProcessorStatus;
+        public byte ProcessorStatus { get; set; }
         // Register values
         private byte _A, _X, _Y, _SP;
         /// <summary>
@@ -79,17 +85,17 @@ namespace NESCove.MOS6502
 
         public bool IsFlagSet(byte flag)
         {
-            return (ProcessorStatus & (StatusFlags)flag) != 0;
+            return (ProcessorStatus & flag) != 0;
         }
 
         public void SetFlag(byte flag)
         {
-            ProcessorStatus |= (StatusFlags)flag;
+            ProcessorStatus |= flag;
         }
 
         public void ClearFlag(byte flag)
         {
-            ProcessorStatus &= ~(StatusFlags)flag;
+            ProcessorStatus &= (byte)~flag;
         }
 
         private void UpdateALUFlags(byte value)

@@ -70,6 +70,10 @@
     <Compile Include="Opcodes\LDY.cs" />
     <Compile Include="Opcodes\OpcodeBase.cs" />
     <Compile Include="Opcodes\OpcodeFactory.cs" />
+    <Compile Include="Opcodes\PHA.cs" />
+    <Compile Include="Opcodes\PHP.cs" />
+    <Compile Include="Opcodes\PLA.cs" />
+    <Compile Include="Opcodes\PLP.cs" />
     <Compile Include="Opcodes\SEC.cs" />
     <Compile Include="Opcodes\SED.cs" />
     <Compile Include="Opcodes\SEI.cs" />

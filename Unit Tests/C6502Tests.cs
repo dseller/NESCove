@@ -265,6 +265,47 @@ namespace Unit_Tests
             Assert.AreEqual(0x05, c.State.RegX, "Decrementing X register (expecting 0x05)");
         }
 
+        [TestMethod]
+        public void C6502_Execute_PHA()
+        {
+            var c = CreateTestCPU();
+            c.Memory[0x00] = 0xA9;
+            c.Memory[0x01] = 0xFF;
+            c.Memory[0x02] = 0x48;
+            c.Step(2);
+            Assert.AreEqual(0xFF, c.Pop(), "Pushing A register on stack (expecting 0xFF)");
+        }
+
+        [TestMethod]
+        public void C6502_Execute_PHP()
+        {
+            var c = CreateTestCPU();
+            c.Memory[0x00] = 0xA2;
+            c.Memory[0x01] = 0x00; // load X with 0x00, thus setting the Z flag
+            c.Memory[0x02] = 0x08;
+            c.Step(2);
+            Assert.IsTrue((c.Pop() & (byte)StatusFlags.Zero) != 0, "Pushing status register on stack (expecting Zero bit set)");
+        }
+
+        [TestMethod]
+        public void C6502_Execute_PLA()
+        {
+            var c = CreateTestCPU();
+            c.Push(0xFF);
+            c.Memory[0x00] = 0x68;
+            c.Step();
+            Assert.AreEqual(0xFF, c.State.RegA, "Popping A from stack (expecting 0xFF)");
+        }
+
+        [TestMethod]
+        public void C6502_Execute_PLP()
+        {
+            var c = CreateTestCPU();
+            c.Push((byte)StatusFlags.Zero);
+            c.Memory[0x00] = 0x28;
+            c.Step();
+            Assert.AreEqual((byte)StatusFlags.Zero, c.State.ProcessorStatus, "Popping Status register from stack (expecting Zero bit set)");
+        }
 
         private IBasicCPU<byte, byte, ushort> CreateTestCPU()
         {
