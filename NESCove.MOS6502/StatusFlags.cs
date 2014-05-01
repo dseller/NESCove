@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NESCove.Core
+namespace NESCove.MOS6502
 {
     [Flags]
     public enum StatusFlags : byte

@@ -9,10 +9,16 @@ using System.Diagnostics;
 
 namespace NESCove.MOS6502
 {
-    public class C6502 : I6502
+    public class C6502 : IBasicCPU<byte, byte, ushort>
     {
-        public ExecutionState State { get; private set; }
-        public IMemoryProvider Memory { get; private set; }
+        // Moved here to keep it out of Core
+        /// <summary>
+        /// Page size of the 6502 memory
+        /// </summary>
+        public const int PageSize = 256;
+
+        public IBasicState<byte, byte, ushort> State { get; private set; }
+        public IMemoryProvider<byte, ushort> Memory { get; private set; }
 
         /// <summary>
         /// Create a new 6502 instance with a test memory provider
@@ -27,7 +33,8 @@ namespace NESCove.MOS6502
         /// Create a new 6502 instance with a specfied memory provider
         /// </summary>
         /// <param name="memoryProvider">Memory provider to use</param>
-        public C6502(IMemoryProvider memoryProvider) : this()
+        public C6502(MemoryProviderBase memoryProvider)
+            : this()
         {
             Memory = memoryProvider;
         }
@@ -36,7 +43,7 @@ namespace NESCove.MOS6502
         {
             if (!opcode.AddressingType.ParameterSize.HasValue) return 0;
             var parameterSize = opcode.AddressingType.ParameterSize.Value;
-            State.Parameter = Helper.CompositeInteger(Memory, State.ProgramCounter, parameterSize);
+            State.Parameter = (ushort)Helper.CompositeInteger(Memory, State.ProgramCounter, parameterSize);
             State.ProgramCounter += parameterSize;
             return opcode.AddressingType.GetOperand(this, State.Parameter);
         }

@@ -147,10 +147,9 @@ namespace Unit_Tests
 
 
 
-        private I6502 CreateTestCPU()
+        private IBasicCPU<byte, byte, ushort> CreateTestCPU()
         {
-            var cpu = new C6502();
-            return cpu;
+            return (IBasicCPU<byte, byte, ushort>)new C6502();
         }
 
 

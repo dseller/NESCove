@@ -6,16 +6,22 @@ using System.Threading.Tasks;
 
 namespace NESCove.Core
 {
-    public interface I6502
+    /// <summary>
+    /// Basic CPU interface
+    /// </summary>
+    /// <typeparam name="O">Opcode value type</typeparam>
+    /// <typeparam name="W">Word value type</typeparam>
+    /// <typeparam name="M">Memory length value type</typeparam>
+    public interface IBasicCPU<O, W, M>
     {
         /// <summary>
         /// Memory provider for 6502 CPU
         /// </summary>
-        IMemoryProvider Memory { get; }
+        IMemoryProvider<W, M> Memory { get; }
         /// <summary>
         /// Execution state with all registers
         /// </summary>
-        ExecutionState State { get; }
+        IBasicState<O, W, M> State { get; }
         /// <summary>
         /// Steps the CPU one operation
         /// </summary>

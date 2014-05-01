@@ -51,6 +51,8 @@
     <Compile Include="Addressing\ZeroPageIndexedXAddressing.cs" />
     <Compile Include="Addressing\ZeroPageIndexedYAddressing.cs" />
     <Compile Include="C6502.cs" />
+    <Compile Include="ExecutionState.cs" />
+    <Compile Include="MemoryProviderBase.cs" />
     <Compile Include="Opcodes\BRK.cs" />
     <Compile Include="Opcodes\IOpcode.cs" />
     <Compile Include="Opcodes\LDA.cs" />
@@ -66,6 +68,7 @@
     <Compile Include="Opcodes\TXS.cs" />
     <Compile Include="Opcodes\TYA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StatusFlags.cs" />
     <Compile Include="TestMemoryProvider.cs" />
   </ItemGroup>
   <ItemGroup>

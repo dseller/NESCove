@@ -19,7 +19,7 @@ namespace NESCove.MOS6502.Opcodes
 
         public int CalculateExtraCycles(int addressA, int addressB, Boolean branch = false)
         {
-            return (Helper.IsSamePage((ushort)addressA, (ushort)addressB) ? 0 : 1) + (branch ? 1 : 0);
+            return (Helper.IsSamePage((ushort)addressA, (ushort)addressB, C6502.PageSize) ? 0 : 1) + (branch ? 1 : 0);
         }
 
         public abstract int Execute(C6502 cpu, byte operand);

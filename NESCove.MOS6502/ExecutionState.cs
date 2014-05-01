@@ -1,15 +1,16 @@
-﻿using System;
+﻿using NESCove.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NESCove.Core
+namespace NESCove.MOS6502
 {
     /// <summary>
     /// Represents the state of a CPU
     /// </summary>
-    public class ExecutionState
+    public class ExecutionState : IBasicState<byte, byte, ushort>
     {
         /// <summary>
         /// Last read Opcode
@@ -76,33 +77,33 @@ namespace NESCove.Core
         }
 
 
-        public bool IsFlagSet(StatusFlags flag)
+        public bool IsFlagSet(byte flag)
         {
-            return (ProcessorStatus & flag) != 0;
+            return (ProcessorStatus & (StatusFlags)flag) != 0;
         }
 
-        public void SetFlag(StatusFlags flag)
+        public void SetFlag(byte flag)
         {
-            ProcessorStatus |= flag;
+            ProcessorStatus |= (StatusFlags)flag;
         }
 
-        public void ResetFlag(StatusFlags flag)
+        public void ClearFlag(byte flag)
         {
-            ProcessorStatus &= ~flag;
+            ProcessorStatus &= ~(StatusFlags)flag;
         }
 
         private void UpdateALUFlags(byte value)
         {
             // Update Negative Flag
             if (value > 0x7F)
-                SetFlag(StatusFlags.Negative);
+                SetFlag((byte)StatusFlags.Negative);
             else
-                ResetFlag(StatusFlags.Negative);
+                ClearFlag((byte)StatusFlags.Negative);
             // Update Zero Flag
             if (value == 0)
-                SetFlag(StatusFlags.Zero);
+                SetFlag((byte)StatusFlags.Zero);
             else
-                ResetFlag(StatusFlags.Zero);
+                ClearFlag((byte)StatusFlags.Zero);
         }
 
     }
