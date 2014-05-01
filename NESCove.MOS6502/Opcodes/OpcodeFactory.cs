@@ -82,6 +82,12 @@ namespace NESCove.MOS6502.Opcodes
             _opcodes.Add(0x08, new PHP(new ImpliedAddressing()));
             _opcodes.Add(0x68, new PLA(new ImpliedAddressing()));
             _opcodes.Add(0x28, new PLP(new ImpliedAddressing()));
+            // Branching: JMP, JSR, RTS, RTI
+            _opcodes.Add(0x4C, new JMP(new AbsoluteAddressing()));
+            _opcodes.Add(0x6C, new JMP(new IndirectAddressing()));
+            _opcodes.Add(0x20, new JSR(new AbsoluteAddressing()));
+            _opcodes.Add(0x60, new RTS(new ImpliedAddressing()));
+            _opcodes.Add(0x40, new RTI(new ImpliedAddressing()));
         }
 
         public static IOpcode GetOpcode(byte opcode)

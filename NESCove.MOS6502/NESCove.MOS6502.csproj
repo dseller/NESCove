@@ -45,6 +45,7 @@
     <Compile Include="Addressing\ImpliedAddressing.cs" />
     <Compile Include="Addressing\IndexedXAddressing.cs" />
     <Compile Include="Addressing\IndexedYAddressing.cs" />
+    <Compile Include="Addressing\IndirectAddressing.cs" />
     <Compile Include="Addressing\PostIndexedYIndirectAddressing.cs" />
     <Compile Include="Addressing\PreIndexedXIndirectAddressing.cs" />
     <Compile Include="Addressing\ZeroPageAddressing.cs" />
@@ -65,6 +66,8 @@
     <Compile Include="Opcodes\INX.cs" />
     <Compile Include="Opcodes\INY.cs" />
     <Compile Include="Opcodes\IOpcode.cs" />
+    <Compile Include="Opcodes\JMP.cs" />
+    <Compile Include="Opcodes\JSR.cs" />
     <Compile Include="Opcodes\LDA.cs" />
     <Compile Include="Opcodes\LDX.cs" />
     <Compile Include="Opcodes\LDY.cs" />
@@ -74,6 +77,8 @@
     <Compile Include="Opcodes\PHP.cs" />
     <Compile Include="Opcodes\PLA.cs" />
     <Compile Include="Opcodes\PLP.cs" />
+    <Compile Include="Opcodes\RTI.cs" />
+    <Compile Include="Opcodes\RTS.cs" />
     <Compile Include="Opcodes\SEC.cs" />
     <Compile Include="Opcodes\SED.cs" />
     <Compile Include="Opcodes\SEI.cs" />

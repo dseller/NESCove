@@ -53,7 +53,7 @@ namespace NESCove.MOS6502
             State.Opcode = Memory[State.ProgramCounter++];
             IOpcode handler = OpcodeFactory.GetOpcode(State.Opcode);
             if (handler == null)
-                throw new Exception("Opcode not implemented!");
+                throw new Exception(string.Format("Opcode {0} not implemented!", State.Opcode));
             var operand = GetOperandSafe(handler);
             return handler.Execute(this, operand );
         }

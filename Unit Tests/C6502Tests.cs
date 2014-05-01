@@ -307,6 +307,65 @@ namespace Unit_Tests
             Assert.AreEqual((byte)StatusFlags.Zero, c.State.ProcessorStatus, "Popping Status register from stack (expecting Zero bit set)");
         }
 
+        [TestMethod]
+        public void C6502_Execute_JMP_Absolute()
+        {
+            var c = CreateTestCPU();
+            c.Memory[0xDEAD] = 0xA9;
+            c.Memory[0xDEAE] = 0xFF; // load A with 0xFF
+            c.Memory[0x00] = 0x4C;
+            c.Memory[0x01] = 0xAD;
+            c.Memory[0x02] = 0xDE;  // jump to 0xDEAD
+            c.Step(2);
+            Assert.AreEqual(0xFF, c.State.RegA, "Jumping to address where A is set to 0xFF.");    
+        }
+
+        [TestMethod]
+        public void C6502_Execute_JMP_Indirect()
+        {
+            var c = CreateTestCPU();
+            c.Memory[0xDEAD] = 0xA9;
+            c.Memory[0xDEAE] = 0xFF; // load A with 0xFF
+            c.Memory[0x2005] = 0xAD;
+            c.Memory[0x2006] = 0xDE; // point to 0xDEAD
+            c.Memory[0x00] = 0x6C;
+            c.Memory[0x01] = 0x05;
+            c.Memory[0x02] = 0x20;  // address is stored in 0x2005
+            c.Step(2);
+            Assert.AreEqual(0xFF, c.State.RegA, "Jumping to address containing an address where A is set to 0xFF.");
+        }
+
+        [TestMethod]
+        public void C6502_Execute_JSR_And_RTS()
+        {
+            var c = CreateTestCPU();
+            c.Memory[0xDEAD] = 0x60; // RTS - return from subroutine
+            c.Memory[0x00] = 0x20;
+            c.Memory[0x01] = 0xAD;
+            c.Memory[0x02] = 0xDE;
+            c.Memory[0x03] = 0xA9;
+            c.Memory[0x04] = 0xFF;
+            c.Step(3);
+            Assert.AreEqual(0xFF, c.State.RegA, "Calling subroutine, returning, and loading A with 0xFF.");
+        }
+
+        [TestMethod]
+        public void C6502_Execute_RTI()
+        {
+            var c = CreateTestCPU();
+            // most significant byte must be pushed first
+            c.Push(0xDE);
+            c.Push(0xAD);
+            c.Push((byte)StatusFlags.Zero);
+
+            c.Memory[0xDEAD] = 0xA9;
+            c.Memory[0xDEAE] = 0xFF;
+            c.Memory[0x00] = 0x40;
+
+            c.Step(2);
+            Assert.AreEqual(0xFF, c.State.RegA, "Returning from faked interrupt, A should be 0xFF");
+        }
+
         private IBasicCPU<byte, byte, ushort> CreateTestCPU()
         {
             return (IBasicCPU<byte, byte, ushort>)new C6502();
