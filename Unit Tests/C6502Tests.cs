@@ -219,6 +219,53 @@ namespace Unit_Tests
             Assert.IsTrue((c.State.Parameter | (byte)StatusFlags.InterruptDisable) != 0, "Setting interrupt disable flag to TRUE");
         }
 
+        [TestMethod]
+        public void C6502_Execute_INC_Absolute()
+        {
+            var c = CreateTestCPU();
+            c.Memory[0xDEAD] = 0x30;
+            c.Memory[0x00] = 0xEE;
+            c.Memory[0x01] = 0xAD;
+            c.Memory[0x02] = 0xDE;
+            c.Step();
+            Assert.AreEqual(0x31, c.Memory[0xDEAD], "Incrementing value in memory @ address 0xDEAD (expecting 0x31).");
+        }
+
+        [TestMethod]
+        public void C6502_Execute_DEC_Absolute()
+        {
+            var c = CreateTestCPU();
+            c.Memory[0xDEAD] = 0x30;
+            c.Memory[0x00] = 0xCE;
+            c.Memory[0x01] = 0xAD;
+            c.Memory[0x02] = 0xDE;
+            c.Step();
+            Assert.AreEqual(0x2F, c.Memory[0xDEAD], "Decrementing value in memory @ address 0xDEAD (expecting 0x29).");
+        }
+
+        [TestMethod]
+        public void C6502_Execute_INX()
+        {
+            var c = CreateTestCPU();
+            c.Memory[0x00] = 0xA2;
+            c.Memory[0x01] = 0x06;
+            c.Memory[0x02] = 0xE8;
+            c.Step(2);
+            Assert.AreEqual(0x07, c.State.RegX, "Incrementing X register (expecting 0x07)");
+        }
+
+        [TestMethod]
+        public void C6502_Execute_DEX()
+        {
+            var c = CreateTestCPU();
+            c.Memory[0x00] = 0xA2;
+            c.Memory[0x01] = 0x06;
+            c.Memory[0x02] = 0xCA;
+            c.Step(2);
+            Assert.AreEqual(0x05, c.State.RegX, "Decrementing X register (expecting 0x05)");
+        }
+
+
         private IBasicCPU<byte, byte, ushort> CreateTestCPU()
         {
             return (IBasicCPU<byte, byte, ushort>)new C6502();

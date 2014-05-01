@@ -58,6 +58,12 @@
     <Compile Include="Opcodes\CLD.cs" />
     <Compile Include="Opcodes\CLI.cs" />
     <Compile Include="Opcodes\CLV.cs" />
+    <Compile Include="Opcodes\DEC.cs" />
+    <Compile Include="Opcodes\DEX.cs" />
+    <Compile Include="Opcodes\DEY.cs" />
+    <Compile Include="Opcodes\INC.cs" />
+    <Compile Include="Opcodes\INX.cs" />
+    <Compile Include="Opcodes\INY.cs" />
     <Compile Include="Opcodes\IOpcode.cs" />
     <Compile Include="Opcodes\LDA.cs" />
     <Compile Include="Opcodes\LDX.cs" />
