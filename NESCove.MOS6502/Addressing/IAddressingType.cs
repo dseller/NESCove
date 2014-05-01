@@ -15,7 +15,7 @@ namespace NESCove.MOS6502.Addressing
 
         /// <summary>
         /// This will translate from parameter to operand.
-        /// <remarks>Note that the first parameter is a short. This can be abyte too.</remarks>
+        /// <remarks>Note that the first parameter is a short. This can be a byte too.</remarks>
         /// </summary>
         /// <param name="parameter">The parameter from the instruction.</param>
         /// <returns></returns>

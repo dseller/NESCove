@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace NESCove.Core
 {
-    public class DataHelper
+    public class Helper
     {
+        /// <summary>
+        /// Page size of the 6502 memory
+        /// </summary>
+        public const int PageSize = 256;
+
         /// <summary>
         /// Composes bytes in to an integer of Little Endian byte order
         /// </summary>
@@ -40,6 +45,17 @@ namespace NESCove.Core
                 result = (ushort)(provider[offset++] << (8 * index) | result);
             }
             return result;
+        }
+
+        /// <summary>
+        /// Compare two memory addresses to determine if they're in the same memory page
+        /// </summary>
+        /// <param name="address">Address A</param>
+        /// <param name="addressB">Address B</param>
+        /// <returns>true if Address A and Address B are in the same page</returns>
+        public static Boolean IsSamePage(ushort address, ushort addressB)
+        {
+            return (int)(address / PageSize) == (int)(addressB / PageSize);
         }
     }
 }

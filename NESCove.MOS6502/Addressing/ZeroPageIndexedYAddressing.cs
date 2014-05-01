@@ -11,7 +11,7 @@ namespace NESCove.MOS6502.Addressing
         public byte? ParameterSize { get { return 1; } }
         public byte GetOperand(C6502 cpu, ushort parameter)
         {
-            return cpu.Memory[(ushort)(cpu.RegY + (parameter & 0xFF))];
+            return cpu.Memory[(ushort)(cpu.State.RegY + (parameter & 0xFF))];
         }
     }
 }

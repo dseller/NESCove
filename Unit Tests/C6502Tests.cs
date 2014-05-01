@@ -30,7 +30,7 @@ namespace Unit_Tests
             c.Memory[0x01] = 0xFF;
             c.Step();
             // We should probably assert all the registers (JL)
-            Assert.AreEqual(c.RegA, 0xFF, "Loading FF into A using Immediate Addressing");
+            Assert.AreEqual(c.State.RegA, 0xFF, "Loading FF into A using Immediate Addressing");
         }
 
         [TestMethod]
@@ -42,7 +42,7 @@ namespace Unit_Tests
             c.Memory[0x01] = 0xA0;
             c.Memory[0x02] = 0x16;
             c.Step();
-            Assert.AreEqual(c.RegA, 0x13, "Loading 13 into A using absolute addressing");
+            Assert.AreEqual(c.State.RegA, 0x13, "Loading 13 into A using absolute addressing");
         }
 
         [TestMethod]
@@ -53,7 +53,7 @@ namespace Unit_Tests
             c.Memory[0x00] = 0xA5;
             c.Memory[0x01] = 0xFC;
             c.Step();
-            Assert.AreEqual(c.RegA, 0x14, "Loading 14 into A using Zero Page Addressing"); 
+            Assert.AreEqual(c.State.RegA, 0x14, "Loading 14 into A using Zero Page Addressing"); 
         }
 
         [TestMethod]
@@ -63,7 +63,7 @@ namespace Unit_Tests
             c.Memory[0x00] = 0xA2;
             c.Memory[0x01] = 0x06;
             c.Step();
-            Assert.AreEqual(c.RegX, 0x06, "Loading 06 into X using Immediate Addressing");
+            Assert.AreEqual(c.State.RegX, 0x06, "Loading 06 into X using Immediate Addressing");
         }
 
         [TestMethod]
@@ -76,7 +76,7 @@ namespace Unit_Tests
             c.Memory[0x00] = 0xA1;
             c.Memory[0x01] = 0x46;
             c.Step();
-            Assert.AreEqual(c.RegA, 0xFF, "Loading FF into A using Pre-Indexed Indirect Addressing");
+            Assert.AreEqual(c.State.RegA, 0xFF, "Loading FF into A using Pre-Indexed Indirect Addressing");
         }
 
         [TestMethod]
@@ -86,7 +86,7 @@ namespace Unit_Tests
             c.Memory[0x00] = 0xA0;
             c.Memory[0x01] = 0x04;
             c.Step();
-            Assert.AreEqual(c.RegY, 0x04, "Loading 04 into Y using Immediate Addressing");
+            Assert.AreEqual(c.State.RegY, 0x04, "Loading 04 into Y using Immediate Addressing");
         }
 
         [TestMethod]
@@ -99,7 +99,7 @@ namespace Unit_Tests
             c.Memory[0x00] = 0xB1;
             c.Memory[0x01] = 0x48;
             c.Step();
-            Assert.AreEqual(c.RegA, 0xCF, "Loading CF into A using Post-Indexed Indirect Addressing");
+            Assert.AreEqual(c.State.RegA, 0xCF, "Loading CF into A using Post-Indexed Indirect Addressing");
         }
 
         [TestMethod]
@@ -112,7 +112,7 @@ namespace Unit_Tests
             c.Memory[0x02] = 0xB5;
             c.Memory[0x03] = 0x00;
             c.Step(2);
-            Assert.AreEqual(c.RegA, 0xFE, "Loading FE into A using Zero-Page Indexed Addressing");
+            Assert.AreEqual(c.State.RegA, 0xFE, "Loading FE into A using Zero-Page Indexed Addressing");
         }
 
         [TestMethod]
@@ -127,7 +127,7 @@ namespace Unit_Tests
             c.Memory[0x03] = 0x00;
             c.Memory[0x04] = 0x10;
             c.Step(2);
-            Assert.AreEqual(c.RegA, 0xFB, "Loading FB into A using Absolute X Addressing");
+            Assert.AreEqual(c.State.RegA, 0xFB, "Loading FB into A using Absolute X Addressing");
         }
 
         [TestMethod]
@@ -142,15 +142,14 @@ namespace Unit_Tests
             c.Memory[0x03] = 0x00;
             c.Memory[0x04] = 0x11;
             c.Step(2);
-            Assert.AreEqual(c.RegA, 0xFD, "Loading FD into A using Absolute Y Addressing");
+            Assert.AreEqual(c.State.RegA, 0xFD, "Loading FD into A using Absolute Y Addressing");
         }
 
 
 
-        private C6502 CreateTestCPU()
+        private I6502 CreateTestCPU()
         {
-            C6502 cpu = new C6502();
-            cpu.Memory = new TestMemoryProvider();
+            var cpu = new C6502();
             return cpu;
         }
 

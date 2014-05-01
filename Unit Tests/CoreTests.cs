@@ -12,7 +12,7 @@ namespace Unit_Tests
         {
             ushort targetNumber = 6502;
             byte[] littleEndian6502 = {0x66, 0x19};
-            ushort result = DataHelper.CompositeInteger(littleEndian6502, 0, 2);
+            ushort result = Helper.CompositeInteger(littleEndian6502, 0, 2);
             Assert.AreEqual<ushort>(result, targetNumber);
         }
 
@@ -21,7 +21,7 @@ namespace Unit_Tests
         {
             byte targetNumber = 172;
             byte[] littleEndian172 = { 0xAC };
-            ushort result = DataHelper.CompositeInteger(littleEndian172, 0, 1);
+            ushort result = Helper.CompositeInteger(littleEndian172, 0, 1);
             Assert.AreEqual<ushort>(result, targetNumber);
         }
     }

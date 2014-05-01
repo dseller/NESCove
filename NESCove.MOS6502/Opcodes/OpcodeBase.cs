@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NESCove.MOS6502.Addressing;
+using NESCove.Core;
 
 namespace NESCove.MOS6502.Opcodes
 {
@@ -16,36 +17,11 @@ namespace NESCove.MOS6502.Opcodes
             AddressingType = addressing;
         }
 
-        // Aren't these directly mapped to the state of the Accumulator ?
-        // The highest order bit from the accumulator is the negative flag,
-        // And a NAND on all the bits of the accumulator would be the zero flag
-        // So these should just be updated when the accumulator is set, right?
-        protected void SetNegative(C6502 cpu, byte operand)
-        {
-            if (operand > 0x7F)
-                cpu.SetFlag(StatusFlags.Negative);
-            else
-                cpu.ResetFlag(StatusFlags.Negative);
-        }
-
-        protected void SetZero(C6502 cpu, byte operand)
-        {
-            if (operand == 0)
-                cpu.SetFlag(StatusFlags.Zero);
-            else
-                cpu.ResetFlag(StatusFlags.Zero);
-        }
-
-        public Boolean IsSamePage(ushort address, ushort addressB)
-        {
-            return (int)(address / C6502.PageSize) == (int)(addressB / C6502.PageSize);
-        }
-
         public int CalculateExtraCycles(int addressA, int addressB, Boolean branch = false)
         {
-            return (IsSamePage((ushort)addressA, (ushort)addressB) ? 0 : 1) + (branch ? 1 : 0);
+            return (Helper.IsSamePage((ushort)addressA, (ushort)addressB) ? 0 : 1) + (branch ? 1 : 0);
         }
 
-        public abstract int Execute(C6502 cpu, ushort parameter);
+        public abstract int Execute(C6502 cpu, byte operand);
     }
 }
