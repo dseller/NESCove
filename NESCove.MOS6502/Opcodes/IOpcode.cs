@@ -10,6 +10,6 @@ namespace NESCove.MOS6502.Opcodes
     public interface IOpcode
     {
         IAddressingType AddressingType { get; }
-        int Execute(C6502 cpu, ushort parameter);
+        int Execute(C6502 cpu, byte operand);
     }
 }

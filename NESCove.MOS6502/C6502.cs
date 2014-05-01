@@ -9,88 +9,77 @@ using System.Diagnostics;
 
 namespace NESCove.MOS6502
 {
-    public class C6502
+    public class C6502 : I6502
     {
-        // Not sure where we should be putting these types of constants
-        public const int PageSize = 256;
+        public ExecutionState State { get; private set; }
+        public IMemoryProvider Memory { get; private set; }
 
-        // Special Purpose Registers
-        public UInt16 ProgramCounter { get; set; }
-        public Byte StackPointer { get; set; }      // Stack is at 0x0100 - 0x01FF. 
-        public StatusFlags ProcessorStatus { get; set; }
-        // General Purpose Registers
-        public Byte RegA { get; set; }
-        public Byte RegX { get; set; }
-        public Byte RegY { get; set; }
         /// <summary>
-        /// Last read opcode
+        /// Create a new 6502 instance with a test memory provider
         /// </summary>
-        public Byte Opcode { get; private set; }
-
-        public IMemoryProvider Memory { get; set; }
-
-        public bool IsFlagSet(StatusFlags flag)
+        public C6502()
         {
-            return (ProcessorStatus & flag) != 0;
+            State = new ExecutionState();
+            Memory = new TestMemoryProvider();
         }
 
-        public void SetFlag(StatusFlags flag)
+        /// <summary>
+        /// Create a new 6502 instance with a specfied memory provider
+        /// </summary>
+        /// <param name="memoryProvider">Memory provider to use</param>
+        public C6502(IMemoryProvider memoryProvider) : this()
         {
-            ProcessorStatus |= flag;
+            Memory = memoryProvider;
         }
 
-        public void ResetFlag(StatusFlags flag)
+        public byte GetOperandSafe(IOpcode opcode)
         {
-            ProcessorStatus &= ~flag;
+            if (!opcode.AddressingType.ParameterSize.HasValue) return 0;
+            var parameterSize = opcode.AddressingType.ParameterSize.Value;
+            State.Parameter = Helper.CompositeInteger(Memory, State.ProgramCounter, parameterSize);
+            State.ProgramCounter += parameterSize;
+            return opcode.AddressingType.GetOperand(this, State.Parameter);
         }
 
-        public void Step(int iterations = 1)
+        private int ExecuteNextOperation()
         {
-            // Test code for testing the MOS6502 processor (NES version)
-            // Bank switching / MMC must be implemented later.
-            if (iterations == 1)
+            State.Opcode = Memory[State.ProgramCounter++];
+            IOpcode handler = OpcodeFactory.GetOpcode(State.Opcode);
+            var operand = GetOperandSafe(handler);
+            return handler.Execute(this, operand);
+        }
+
+        public int Step(int iterations = 1)
+        {
+            if (iterations < 1) throw new ArgumentOutOfRangeException("iterations", iterations, "Must be greater than 0");
+            int cost = 0;
+            for (int iteration = 0; iteration < iterations; iteration++)
             {
-                Opcode = Memory[ProgramCounter++];
-
-                IOpcode opcodeHandler = OpcodeFactory.GetOpcode(Opcode);
-                if (opcodeHandler == null)
-                    throw new Exception(string.Format("Opcode {0:X2} not implemented yet", Opcode));
-
-                ushort parameter = 0;
-                if (opcodeHandler.AddressingType.ParameterSize.HasValue)
-                {
-                    // Hacky quick and dirty way to retrieve parameters. Note the endianness, might need to modify this later (DS)
-                    // Hope this is satisfactory (JL)
-                    var parameterSize = opcodeHandler.AddressingType.ParameterSize.Value;
-                    parameter = DataHelper.CompositeInteger(Memory, ProgramCounter, parameterSize);
-                    ProgramCounter += parameterSize;
-                }
                 try
                 {
-                    opcodeHandler.Execute(this, parameter);
+                    cost += ExecuteNextOperation();
                 }
                 catch (OpcodeExecutionException oee)
                 {
-                    Debug.Fail(String.Format("OEE Failure executing opcode {0:X2}", Opcode),
-                                oee.ToString() + "\r\n" + ToString());
-                    throw new Exception(String.Format("OEE Failure executing opcode {0:X2}", Opcode), oee);
+                    var ErrorTitle = String.Format("OEE Failure executing opcode {0:X2}", State.Opcode);
+                    Debug.Fail(ErrorTitle, oee.ToString() + "\r\n" + ToString());
+                    throw new Exception(ErrorTitle, oee);
                 }
             }
-            else if (iterations > 1)
-            {
-                for (int iteration = 0; iteration < iterations; iteration++)
-                {
-                    Step();
-                }
-            }
+            return cost;
         }
 
         public override string ToString()
         {
+            /*
+             * The performance impact of this is probably so insignificant that it's stupid
+             * But I'm in one of those moods (JL)
+             */
+            var state = State; 
             StringBuilder builder = new StringBuilder();
             builder.AppendFormat("=======================================\r\n");
-            builder.AppendFormat("  PC = {0:X4}\tSP= {1:X2}\r\n", ProgramCounter, StackPointer);
-            builder.AppendFormat("   A = {0:X2}\tX = {1:X2}\t\tY = {2:X2}\r\n", RegA, RegX, RegY);
+            builder.AppendFormat("  PC = {0:X4}\tSP= {1:X2}\r\n", state.ProgramCounter, state.StackPointer);
+            builder.AppendFormat("   A = {0:X2}\tX = {1:X2}\t\tY = {2:X2}\r\n", state.RegA, state.RegX, state.RegY);
             builder.AppendFormat("=======================================\r\n\r\n");
             return builder.ToString();
         }

@@ -10,12 +10,9 @@ namespace NESCove.MOS6502.Opcodes
 
         }
 
-        public override int Execute(C6502 cpu, ushort parameter)
+        public override int Execute(C6502 cpu, byte operand)
         {
-            byte operand = cpu.RegX;
-            SetNegative(cpu, operand);
-            SetZero(cpu, operand);
-            cpu.RegA = operand;
+            cpu.State.RegA = cpu.State.RegX;
             return 2;
         }
     }

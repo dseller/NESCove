@@ -12,7 +12,7 @@ namespace NESCove.MOS6502.Opcodes
             // http://www.thealmightyguru.com/Games/Hacking/Wiki/index.php?title=BRK
         }
 
-        public override int Execute(C6502 cpu, ushort parameter)
+        public override int Execute(C6502 cpu, byte operand)
         {
             // Mixed results across sites, some say 2 some say 7. I'm going to assume
             // It's 2 on the Ricoh 2A03, as less operations are done

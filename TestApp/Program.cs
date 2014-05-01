@@ -12,7 +12,6 @@ namespace TestApp
         static void Main(string[] args)
         {
             C6502 c = new C6502();
-            c.Memory = new TestMemoryProvider();
             // immediate:
             c.Memory[0x00] = 0xA9;
             c.Memory[0x01] = 0xFF;

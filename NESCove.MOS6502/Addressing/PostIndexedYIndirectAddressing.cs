@@ -11,7 +11,7 @@ namespace NESCove.MOS6502.Addressing
             byte b1 = cpu.Memory[address1];
             byte b2 = cpu.Memory[(ushort)(address1 + 1)];
             UInt16 dataFromMemory = (ushort)((b2 << 8) | b1);
-            return cpu.Memory[(ushort) (dataFromMemory + cpu.RegY)];
+            return cpu.Memory[(ushort) (dataFromMemory + cpu.State.RegY)];
         }
     }
 }
