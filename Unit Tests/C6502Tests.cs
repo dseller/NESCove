@@ -8,6 +8,14 @@ namespace Unit_Tests
     [TestClass]
     public class C6502Tests
     {
+        private void WriteByteSequence(IC6502 cpu, ushort offset, params byte[] bytes)
+        {
+            for (ushort i = offset; i < (bytes.Length+offset); i++)
+            {
+                cpu.Memory[i] = bytes[i - offset];
+            }
+        }
+
         [TestMethod]
         [Priority(0)]
         public void C6502_Init()
@@ -440,6 +448,79 @@ namespace Unit_Tests
             Assert.AreEqual(0x32, c.State.RegA, "XOR-ing A (0xFF) with 0xCD");
         }
 
+        [TestMethod]
+        public void C6502_Execute_ASL_Accumulator_And_Absolute()
+        {
+            var c = CreateTestCPU();
+            WriteByteSequence(c, 0, 0xA9, 0xFF, 0x85, 0xCD, 0x0A, 0xAA, 0x06, 0xCD, 0xA5, 0xCD);
+            c.Step(6);
+            Assert.AreEqual(0xFE, c.State.RegA);
+            Assert.AreEqual(0xFE, c.State.RegX);
+        }
+
+        [TestMethod]
+        public void C6502_Execute_BIT_Absolute()
+        {
+            var c = CreateTestCPU();
+            //$0600    a9 ff     LDA #$ff
+            //$0602    85 cd     STA $cd
+            //$0604    a9 00     LDA #$00
+            //$0606    24 cd     BIT $cd
+            WriteByteSequence(c, 0, 0xA9, 0xFF, 0x85, 0xCD, 0xA9, 0x00, 0x24, 0xCD);
+            c.Step(4);
+            Assert.IsTrue((c.State.ProcessorStatus & (byte)StatusFlags.Negative) != 0);
+            Assert.IsTrue((c.State.ProcessorStatus & (byte)StatusFlags.Overflow) != 0);
+            Assert.IsTrue((c.State.ProcessorStatus & (byte)StatusFlags.Zero) != 0);
+        }
+
+        [TestMethod]
+        public void C6502_Execute_LSR_Accumulator_And_Absolute()
+        {
+            var c = CreateTestCPU();
+            //$0600    a9 ff     LDA #$ff
+            //$0602    85 cd     STA $cd
+            //$0604    4a        LSR A
+            //$0605    46 cd     LSR $cd
+            //$0607    a6 cd     LDX $cd
+            WriteByteSequence(c, 0, 0xA9, 0xFF, 0x85, 0xCD, 0x4A, 0x46, 0xCD, 0xA6, 0xCD);
+            c.Step(5);
+            Assert.AreEqual(0x7F, c.State.RegA);
+            Assert.AreEqual(0x7F, c.State.RegX);
+        }
+
+        [TestMethod]
+        public void C6502_Execute_ROL_Accumulator_And_ZeroPage()
+        {
+            var c = CreateTestCPU();
+            //$0600    38        SEC 
+            //$0601    a9 ff     LDA #$ff
+            //$0603    2a        ROL A
+            //$0604    18        CLC 
+            //$0605    85 cd     STA $cd
+            //$0607    26 cd     ROL $cd
+            //$0609    a6 cd     LDX $cd
+            WriteByteSequence(c, 0, 0x38, 0xA9, 0xFF, 0x2A, 0x18, 0x85, 0xCD, 0x26, 0xCD, 0xA6, 0xCD);
+            c.Step(7);
+            Assert.AreEqual(0xFF, c.State.RegA); // with carry
+            Assert.AreEqual(0xFE, c.State.RegX); // without carry
+        }
+
+        [TestMethod]
+        public void C6502_Execute_ROR_Accumulator_And_ZeroPage()
+        {
+            var c = CreateTestCPU();
+            //$0600    38        SEC 
+            //$0601    a9 ff     LDA #$ff
+            //$0603    6a        ROR A
+            //$0604    18        CLC 
+            //$0605    85 cd     STA $cd
+            //$0607    66 cd     ROR $cd
+            //$0609    a6 cd     LDX $cd
+            WriteByteSequence(c, 0, 0x38, 0xA9, 0xFF, 0x6A, 0x18, 0x85, 0xCD, 0x66, 0xCD, 0xA6, 0xCD);
+            c.Step(7);
+            Assert.AreEqual(0xFF, c.State.RegA); 
+            Assert.AreEqual(0x7F, c.State.RegX);
+        }
 
         private IC6502 CreateTestCPU()
         {

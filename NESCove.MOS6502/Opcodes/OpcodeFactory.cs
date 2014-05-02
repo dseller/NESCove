@@ -144,6 +144,33 @@ namespace NESCove.MOS6502.Opcodes
             _opcodes.Add(0x59, new EOR(new IndexedYAddressing()));
             _opcodes.Add(0x41, new EOR(new PreIndexedXIndirectAddressing()));
             _opcodes.Add(0x51, new EOR(new PostIndexedYIndirectAddressing()));
+            // ASL
+            _opcodes.Add(0x0A, new ASL(new AccumulatorAddressing()));
+            _opcodes.Add(0x06, new ASL(new ZeroPageAddressing()));
+            _opcodes.Add(0x16, new ASL(new ZeroPageIndexedXAddressing()));
+            _opcodes.Add(0x0E, new ASL(new AbsoluteAddressing()));
+            _opcodes.Add(0x1E, new ASL(new IndexedXAddressing()));
+            // BIT
+            _opcodes.Add(0x24, new BIT(new ZeroPageAddressing()));
+            _opcodes.Add(0x2C, new BIT(new AbsoluteAddressing()));
+            // LSR
+            _opcodes.Add(0x4A, new LSR(new AccumulatorAddressing()));
+            _opcodes.Add(0x46, new LSR(new ZeroPageAddressing()));
+            _opcodes.Add(0x56, new LSR(new ZeroPageIndexedXAddressing()));
+            _opcodes.Add(0x4E, new LSR(new AbsoluteAddressing()));
+            _opcodes.Add(0x5E, new LSR(new IndexedXAddressing()));
+            // ROL
+            _opcodes.Add(0x2A, new ROL(new AccumulatorAddressing()));
+            _opcodes.Add(0x26, new ROL(new ZeroPageAddressing()));
+            _opcodes.Add(0x36, new ROL(new ZeroPageIndexedXAddressing()));
+            _opcodes.Add(0x2E, new ROL(new AbsoluteAddressing()));
+            _opcodes.Add(0x3E, new ROL(new IndexedXAddressing()));
+            // ROR
+            _opcodes.Add(0x6A, new ROR(new AccumulatorAddressing()));
+            _opcodes.Add(0x66, new ROR(new ZeroPageAddressing()));
+            _opcodes.Add(0x76, new ROR(new ZeroPageIndexedXAddressing()));
+            _opcodes.Add(0x6E, new ROR(new AbsoluteAddressing()));
+            _opcodes.Add(0x7E, new ROR(new IndexedXAddressing()));
         }
 
         public static IOpcode GetOpcode(byte opcode)

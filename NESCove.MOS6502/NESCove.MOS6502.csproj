@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Addressing\AbsoluteAddressing.cs" />
+    <Compile Include="Addressing\AccumulatorAddressing.cs" />
     <Compile Include="Addressing\IAddressingType.cs" />
     <Compile Include="Addressing\ImmediateAddressing.cs" />
     <Compile Include="Addressing\ImpliedAddressing.cs" />
@@ -55,6 +56,8 @@
     <Compile Include="ExecutionState.cs" />
     <Compile Include="Opcodes\ADC.cs" />
     <Compile Include="Opcodes\AND.cs" />
+    <Compile Include="Opcodes\ASL.cs" />
+    <Compile Include="Opcodes\BIT.cs" />
     <Compile Include="Opcodes\BRK.cs" />
     <Compile Include="Opcodes\CLC.cs" />
     <Compile Include="Opcodes\CLD.cs" />
@@ -73,6 +76,7 @@
     <Compile Include="Opcodes\LDA.cs" />
     <Compile Include="Opcodes\LDX.cs" />
     <Compile Include="Opcodes\LDY.cs" />
+    <Compile Include="Opcodes\LSR.cs" />
     <Compile Include="Opcodes\OpcodeBase.cs" />
     <Compile Include="Opcodes\OpcodeFactory.cs" />
     <Compile Include="Opcodes\ORA.cs" />
@@ -80,6 +84,8 @@
     <Compile Include="Opcodes\PHP.cs" />
     <Compile Include="Opcodes\PLA.cs" />
     <Compile Include="Opcodes\PLP.cs" />
+    <Compile Include="Opcodes\ROL.cs" />
+    <Compile Include="Opcodes\ROR.cs" />
     <Compile Include="Opcodes\RTI.cs" />
     <Compile Include="Opcodes\RTS.cs" />
     <Compile Include="Opcodes\SBC.cs" />
