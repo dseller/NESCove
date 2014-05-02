@@ -117,7 +117,33 @@ namespace NESCove.MOS6502.Opcodes
             _opcodes.Add(0x79, new ADC(new IndexedYAddressing()));
             _opcodes.Add(0x61, new ADC(new PreIndexedXIndirectAddressing()));
             _opcodes.Add(0x71, new ADC(new PostIndexedYIndirectAddressing()));
-
+            // SBC
+            _opcodes.Add(0xE9, new SBC(new ImmediateAddressing()));
+            _opcodes.Add(0xE5, new SBC(new ZeroPageAddressing()));
+            _opcodes.Add(0xF5, new SBC(new ZeroPageIndexedXAddressing()));
+            _opcodes.Add(0xED, new SBC(new AbsoluteAddressing()));
+            _opcodes.Add(0xFD, new SBC(new IndexedXAddressing()));
+            _opcodes.Add(0xF9, new SBC(new IndexedYAddressing()));
+            _opcodes.Add(0xE1, new SBC(new PreIndexedXIndirectAddressing()));
+            _opcodes.Add(0xF1, new SBC(new PostIndexedYIndirectAddressing()));
+            // AND
+            _opcodes.Add(0x29, new AND(new ImmediateAddressing()));
+            _opcodes.Add(0x25, new AND(new ZeroPageAddressing()));
+            _opcodes.Add(0x35, new AND(new ZeroPageIndexedXAddressing()));
+            _opcodes.Add(0x2D, new AND(new AbsoluteAddressing()));
+            _opcodes.Add(0x3D, new AND(new IndexedXAddressing()));
+            _opcodes.Add(0x39, new AND(new IndexedYAddressing()));
+            _opcodes.Add(0x21, new AND(new PreIndexedXIndirectAddressing()));
+            _opcodes.Add(0x31, new AND(new PostIndexedYIndirectAddressing()));
+            // EOR
+            _opcodes.Add(0x49, new EOR(new ImmediateAddressing()));
+            _opcodes.Add(0x45, new EOR(new ZeroPageAddressing()));
+            _opcodes.Add(0x55, new EOR(new ZeroPageIndexedXAddressing()));
+            _opcodes.Add(0x4D, new EOR(new AbsoluteAddressing()));
+            _opcodes.Add(0x5D, new EOR(new IndexedXAddressing()));
+            _opcodes.Add(0x59, new EOR(new IndexedYAddressing()));
+            _opcodes.Add(0x41, new EOR(new PreIndexedXIndirectAddressing()));
+            _opcodes.Add(0x51, new EOR(new PostIndexedYIndirectAddressing()));
         }
 
         public static IOpcode GetOpcode(byte opcode)

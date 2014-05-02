@@ -54,6 +54,7 @@
     <Compile Include="C6502.cs" />
     <Compile Include="ExecutionState.cs" />
     <Compile Include="Opcodes\ADC.cs" />
+    <Compile Include="Opcodes\AND.cs" />
     <Compile Include="Opcodes\BRK.cs" />
     <Compile Include="Opcodes\CLC.cs" />
     <Compile Include="Opcodes\CLD.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Opcodes\DEC.cs" />
     <Compile Include="Opcodes\DEX.cs" />
     <Compile Include="Opcodes\DEY.cs" />
+    <Compile Include="Opcodes\EOR.cs" />
     <Compile Include="Opcodes\INC.cs" />
     <Compile Include="Opcodes\INX.cs" />
     <Compile Include="Opcodes\INY.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="Opcodes\PLP.cs" />
     <Compile Include="Opcodes\RTI.cs" />
     <Compile Include="Opcodes\RTS.cs" />
+    <Compile Include="Opcodes\SBC.cs" />
     <Compile Include="Opcodes\SEC.cs" />
     <Compile Include="Opcodes\SED.cs" />
     <Compile Include="Opcodes\SEI.cs" />

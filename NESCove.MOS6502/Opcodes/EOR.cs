@@ -2,13 +2,15 @@
 
 namespace NESCove.MOS6502.Opcodes
 {
-    public class ORA : OpcodeBase
+    public class EOR : OpcodeBase
     {
-        public ORA(IAddressingType a) : base(a) { }
+        public EOR(IAddressingType addressing) : base(addressing)
+        {
+        }
 
         public override int Execute(C6502 cpu, byte operand)
         {
-            cpu.State.RegA |= operand;
+            cpu.State.RegA ^= operand;
             return 2;
         }
     }

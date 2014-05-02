@@ -390,6 +390,57 @@ namespace Unit_Tests
             Assert.AreEqual(0x04, c.State.RegA, "Adding 0x05 to register A (which was 0xFF), testing carry.");
         }
 
+        [TestMethod]
+        public void C6502_Execute_SBC_Immediate()
+        {
+            var c = CreateTestCPU();
+            c.Memory[0x00] = 0xA9;
+            c.Memory[0x01] = 0x30; // load A with 0x30
+            c.Memory[0x02] = 0xE9;
+            c.Memory[0x03] = 0x05; // subtract 0x05 from A (0x30)
+            c.Step(2);
+            Assert.AreEqual(0x2a, c.State.RegA, "Subtractions 0x05 from register A (which was 0x30).");
+            Assert.IsTrue((c.State.ProcessorStatus & (byte)StatusFlags.Carry) != 0);
+        }
+
+        [TestMethod]
+        public void C6502_Execute_SBC_With_Carry_Immediate()
+        {
+            var c = CreateTestCPU();
+            c.Memory[0x00] = 0xA9;
+            c.Memory[0x01] = 0x00; // load A with 0x00
+            c.Memory[0x02] = 0xE9;
+            c.Memory[0x03] = 0x05; // subtract 0x05 from A (0x30)
+            c.Step(2);
+            Assert.AreEqual(0xfa, c.State.RegA, "Subtraction 0x05 from register A (which was 0x00).");
+            Assert.IsTrue((c.State.ProcessorStatus & (byte)StatusFlags.Carry) == 0);
+        }
+
+        [TestMethod]
+        public void C6502_Execute_AND_Immediate()
+        {
+            var c = CreateTestCPU();
+            c.Memory[0x00] = 0xA9;
+            c.Memory[0x01] = 0xFF;
+            c.Memory[0x02] = 0x29;
+            c.Memory[0x03] = 0xCD;
+            c.Step(2);
+            Assert.AreEqual(0xCD, c.State.RegA, "Bitmasking A (0xFF) with 0xCD");
+        }
+
+        [TestMethod]
+        public void C6502_Execute_EOR_Immediate()
+        {
+            var c = CreateTestCPU();
+            c.Memory[0x00] = 0xA9;
+            c.Memory[0x01] = 0xFF;
+            c.Memory[0x02] = 0x49;
+            c.Memory[0x03] = 0xCD;
+            c.Step(2);
+            Assert.AreEqual(0x32, c.State.RegA, "XOR-ing A (0xFF) with 0xCD");
+        }
+
+
         private IC6502 CreateTestCPU()
         {
             return (IC6502)new C6502();
