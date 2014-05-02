@@ -8,9 +8,29 @@ namespace NESCove.MOS6502.Opcodes
         private static readonly Dictionary<byte, IOpcode> _opcodes =
             new Dictionary<byte, IOpcode>();
 
+        private static readonly IAddressingType
+            Immediate = new ImmediateAddressing(),
+            ZeroPage = new ZeroPageAddressing(),
+            ZeroPageX = new ZeroPageIndexedXAddressing(),
+            ZeroPageY = new ZeroPageIndexedYAddressing(),
+            Absoloute = new AbsoluteAddressing(),
+            AbsolouteX = new IndexedXAddressing(),
+            AbsolouteY = new IndexedYAddressing(),
+            IndirectX = new PreIndexedXIndirectAddressing(),
+            IndirectY = new PostIndexedYIndirectAddressing();
+
         static OpcodeFactory()
         {
             _opcodes.Add(0x00, new BRK());
+            // ORA
+            _opcodes.Add(0x09, new ORA(Immediate));
+            _opcodes.Add(0x05, new ORA(ZeroPage));
+            _opcodes.Add(0x15, new ORA(ZeroPageX));
+            _opcodes.Add(0x0D, new ORA(Absoloute));
+            _opcodes.Add(0x1D, new ORA(AbsolouteX));
+            _opcodes.Add(0x19, new ORA(AbsolouteY));
+            _opcodes.Add(0x01, new ORA(IndirectX));
+            _opcodes.Add(0x11, new ORA(IndirectY));
             // LDA
             _opcodes.Add(0xA9, new LDA(new ImmediateAddressing()));
             _opcodes.Add(0xA5, new LDA(new ZeroPageAddressing()));

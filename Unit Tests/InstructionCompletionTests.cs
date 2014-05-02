@@ -54,7 +54,7 @@ namespace Unit_Tests
             }
             if (missingCount > 0)
             {
-                Debug.WriteLine("Opcode completion {0:###.00}%", (100D * missingCount) / OpcodeList.Length);
+                Debug.WriteLine("Opcode completion {0:###.00}%", 100D - (100D * missingCount) / OpcodeList.Length);
             }
             Assert.AreEqual(missingCount, 0, String.Format("{0} opcode(s) are missing", missingCount));
         }
