@@ -7,11 +7,11 @@ using NESCove.Core;
 
 namespace NESCove.MOS6502
 {
-    public class TestMemoryProvider : MemoryProviderBase 
+    public class TestMemoryProvider : IMemoryProvider
     {
         private byte[] _testArray = new byte[0xFFFF];
 
-        public override byte this[ushort address]
+        public byte this[ushort address]
         {
             get { return _testArray[address]; }
             set { _testArray[address] = value; }
@@ -23,18 +23,6 @@ namespace NESCove.MOS6502
         public void Blank()
         {
             _testArray = new byte[0xFFFF];
-        }
-
-        public override int this[int address]
-        {
-            get
-            {
-                return this[(ushort)address];
-            }
-            set
-            {
-                this[(ushort)address] = (byte)value;
-            }
         }
     }
 }

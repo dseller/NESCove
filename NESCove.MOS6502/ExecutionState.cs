@@ -10,7 +10,7 @@ namespace NESCove.MOS6502
     /// <summary>
     /// Represents the state of a CPU
     /// </summary>
-    public class ExecutionState : IBasicState<byte, byte, ushort>
+    public class ExecutionState : IExecutionState 
     {
         public ExecutionState()
         {

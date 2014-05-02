@@ -53,7 +53,6 @@
     <Compile Include="Addressing\ZeroPageIndexedYAddressing.cs" />
     <Compile Include="C6502.cs" />
     <Compile Include="ExecutionState.cs" />
-    <Compile Include="MemoryProviderBase.cs" />
     <Compile Include="Opcodes\ADC.cs" />
     <Compile Include="Opcodes\BRK.cs" />
     <Compile Include="Opcodes\CLC.cs" />

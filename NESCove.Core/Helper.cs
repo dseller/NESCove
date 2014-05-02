@@ -31,17 +31,15 @@ namespace NESCove.Core
         /// <param name="provider">A memory provider to fetch bytes from</param>
         /// <param name="offset">Offset to state fetching bytes from</param>
         /// <param name="length">The byte length of the integer</param>
-        /// <typeparam name="W">Word type</typeparam>
-        /// <typeparam name="M">Memory length type</typeparam>
-        /// <returns></returns>
-        public static int CompositeInteger(IGenericMemoryProvider provider, int offset, int length)
+        /// <returns>All the things</returns>
+        public static ushort CompositeInteger(IMemoryProvider provider, int offset, int length) 
         {
             int result = 0;
             for (int index = 0; index < length; index++)
             {
-                result = (provider[offset++] << (8 * index) | result);
+                result = (provider[(ushort)offset++] << (8 * index) | result);
             }
-            return result;
+            return (ushort)result;
         }
 
         /// <summary>

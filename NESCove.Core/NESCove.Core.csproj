@@ -39,9 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IBasicState.cs" />
     <Compile Include="Helper.cs" />
-    <Compile Include="IBasicCPU.cs" />
+    <Compile Include="IC6502.cs" />
+    <Compile Include="IExecutionState.cs" />
     <Compile Include="IMemoryProvider.cs" />
     <Compile Include="OpcodeExecutionException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

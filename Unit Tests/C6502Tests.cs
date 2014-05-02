@@ -149,7 +149,7 @@ namespace Unit_Tests
         public void C6502_Execute_STA_Absolute()
         {
             // Store value of A (0xFF) in #$DEAD.
-            IBasicCPU<byte, byte, ushort> c = CreateTestCPU();
+            IC6502 c = CreateTestCPU();
             c.Memory[0x00] = 0xA9;
             c.Memory[0x01] = 0xFF;
             c.Memory[0x02] = 0x8D; // lol smiley face.
@@ -183,7 +183,7 @@ namespace Unit_Tests
         public void C6502_Execute_STX_Absolute()
         {
             // Store value of X (0xFF) in #$DEAD.
-            IBasicCPU<byte, byte, ushort> c = CreateTestCPU();
+            IC6502 c = CreateTestCPU();
             c.Memory[0x00] = 0xA2;
             c.Memory[0x01] = 0xFF;
             c.Memory[0x02] = 0x8E; 
@@ -198,7 +198,7 @@ namespace Unit_Tests
         public void C6502_Execute_STY_Absolute()
         {
             // Store value of Y (0xFF) in #$DEAD.
-            IBasicCPU<byte, byte, ushort> c = CreateTestCPU();
+            IC6502 c = CreateTestCPU();
             c.Memory[0x00] = 0xA0;
             c.Memory[0x01] = 0xFF;
             c.Memory[0x02] = 0x8C; 
@@ -390,9 +390,9 @@ namespace Unit_Tests
             Assert.AreEqual(0x04, c.State.RegA, "Adding 0x05 to register A (which was 0xFF), testing carry.");
         }
 
-        private IBasicCPU<byte, byte, ushort> CreateTestCPU()
+        private IC6502 CreateTestCPU()
         {
-            return (IBasicCPU<byte, byte, ushort>)new C6502();
+            return (IC6502)new C6502();
         }
 
 
