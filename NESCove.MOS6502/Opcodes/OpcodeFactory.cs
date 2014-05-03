@@ -9,7 +9,9 @@ namespace NESCove.MOS6502.Opcodes
             new Dictionary<byte, IOpcode>();
 
         private static readonly IAddressingType
+            Accumulator = new AccumulatorAddressing(),
             Immediate = new ImmediateAddressing(),
+            Indirect = new IndirectAddressing(),
             Implied = new ImpliedAddressing(),
             ZeroPage = new ZeroPageAddressing(),
             ZeroPageX = new ZeroPageIndexedXAddressing(),
@@ -104,74 +106,74 @@ namespace NESCove.MOS6502.Opcodes
             _opcodes.Add(0x68, new PLA(Implied));
             _opcodes.Add(0x28, new PLP(Implied));
             // Branching: JMP, JSR, RTS, RTI
-            _opcodes.Add(0x4C, new JMP(new AbsoluteAddressing()));
-            _opcodes.Add(0x6C, new JMP(new IndirectAddressing()));
-            _opcodes.Add(0x20, new JSR(new AbsoluteAddressing()));
+            _opcodes.Add(0x4C, new JMP(Absoloute));
+            _opcodes.Add(0x6C, new JMP(Indirect));
+            _opcodes.Add(0x20, new JSR(Absoloute));
             _opcodes.Add(0x60, new RTS(Implied));
             _opcodes.Add(0x40, new RTI(Implied));
             // ADC
-            _opcodes.Add(0x69, new ADC(new ImmediateAddressing()));
-            _opcodes.Add(0x65, new ADC(new ZeroPageAddressing()));
-            _opcodes.Add(0x75, new ADC(new ZeroPageIndexedXAddressing()));
-            _opcodes.Add(0x6D, new ADC(new AbsoluteAddressing()));
-            _opcodes.Add(0x7D, new ADC(new IndexedXAddressing()));
-            _opcodes.Add(0x79, new ADC(new IndexedYAddressing()));
-            _opcodes.Add(0x61, new ADC(new PreIndexedXIndirectAddressing()));
-            _opcodes.Add(0x71, new ADC(new PostIndexedYIndirectAddressing()));
+            _opcodes.Add(0x69, new ADC(Immediate));
+            _opcodes.Add(0x65, new ADC(ZeroPage));
+            _opcodes.Add(0x75, new ADC(ZeroPageX));
+            _opcodes.Add(0x6D, new ADC(Absoloute));
+            _opcodes.Add(0x7D, new ADC(AbsolouteIndexedX));
+            _opcodes.Add(0x79, new ADC(AbsolouteIndexedY));
+            _opcodes.Add(0x61, new ADC(IndirectX));
+            _opcodes.Add(0x71, new ADC(IndirectY));
             // SBC
-            _opcodes.Add(0xE9, new SBC(new ImmediateAddressing()));
-            _opcodes.Add(0xE5, new SBC(new ZeroPageAddressing()));
-            _opcodes.Add(0xF5, new SBC(new ZeroPageIndexedXAddressing()));
-            _opcodes.Add(0xED, new SBC(new AbsoluteAddressing()));
-            _opcodes.Add(0xFD, new SBC(new IndexedXAddressing()));
-            _opcodes.Add(0xF9, new SBC(new IndexedYAddressing()));
-            _opcodes.Add(0xE1, new SBC(new PreIndexedXIndirectAddressing()));
-            _opcodes.Add(0xF1, new SBC(new PostIndexedYIndirectAddressing()));
+            _opcodes.Add(0xE9, new SBC(Immediate));
+            _opcodes.Add(0xE5, new SBC(ZeroPage));
+            _opcodes.Add(0xF5, new SBC(ZeroPageX));
+            _opcodes.Add(0xED, new SBC(Absoloute));
+            _opcodes.Add(0xFD, new SBC(AbsolouteIndexedX));
+            _opcodes.Add(0xF9, new SBC(AbsolouteIndexedY));
+            _opcodes.Add(0xE1, new SBC(IndirectX));
+            _opcodes.Add(0xF1, new SBC(IndirectY));
             // AND
-            _opcodes.Add(0x29, new AND(new ImmediateAddressing()));
-            _opcodes.Add(0x25, new AND(new ZeroPageAddressing()));
-            _opcodes.Add(0x35, new AND(new ZeroPageIndexedXAddressing()));
-            _opcodes.Add(0x2D, new AND(new AbsoluteAddressing()));
-            _opcodes.Add(0x3D, new AND(new IndexedXAddressing()));
-            _opcodes.Add(0x39, new AND(new IndexedYAddressing()));
-            _opcodes.Add(0x21, new AND(new PreIndexedXIndirectAddressing()));
-            _opcodes.Add(0x31, new AND(new PostIndexedYIndirectAddressing()));
+            _opcodes.Add(0x29, new AND(Immediate));
+            _opcodes.Add(0x25, new AND(ZeroPage));
+            _opcodes.Add(0x35, new AND(ZeroPageX));
+            _opcodes.Add(0x2D, new AND(Absoloute));
+            _opcodes.Add(0x3D, new AND(AbsolouteIndexedX));
+            _opcodes.Add(0x39, new AND(AbsolouteIndexedY));
+            _opcodes.Add(0x21, new AND(IndirectX));
+            _opcodes.Add(0x31, new AND(IndirectY));
             // EOR
-            _opcodes.Add(0x49, new EOR(new ImmediateAddressing()));
-            _opcodes.Add(0x45, new EOR(new ZeroPageAddressing()));
-            _opcodes.Add(0x55, new EOR(new ZeroPageIndexedXAddressing()));
-            _opcodes.Add(0x4D, new EOR(new AbsoluteAddressing()));
-            _opcodes.Add(0x5D, new EOR(new IndexedXAddressing()));
-            _opcodes.Add(0x59, new EOR(new IndexedYAddressing()));
-            _opcodes.Add(0x41, new EOR(new PreIndexedXIndirectAddressing()));
-            _opcodes.Add(0x51, new EOR(new PostIndexedYIndirectAddressing()));
+            _opcodes.Add(0x49, new EOR(Immediate));
+            _opcodes.Add(0x45, new EOR(ZeroPage));
+            _opcodes.Add(0x55, new EOR(ZeroPageX));
+            _opcodes.Add(0x4D, new EOR(Absoloute));
+            _opcodes.Add(0x5D, new EOR(AbsolouteIndexedX));
+            _opcodes.Add(0x59, new EOR(AbsolouteIndexedY));
+            _opcodes.Add(0x41, new EOR(IndirectX));
+            _opcodes.Add(0x51, new EOR(IndirectY));
             // ASL
-            _opcodes.Add(0x0A, new ASL(new AccumulatorAddressing()));
-            _opcodes.Add(0x06, new ASL(new ZeroPageAddressing()));
-            _opcodes.Add(0x16, new ASL(new ZeroPageIndexedXAddressing()));
-            _opcodes.Add(0x0E, new ASL(new AbsoluteAddressing()));
-            _opcodes.Add(0x1E, new ASL(new IndexedXAddressing()));
+            _opcodes.Add(0x0A, new ASL(Accumulator));
+            _opcodes.Add(0x06, new ASL(ZeroPage));
+            _opcodes.Add(0x16, new ASL(ZeroPageX));
+            _opcodes.Add(0x0E, new ASL(Absoloute));
+            _opcodes.Add(0x1E, new ASL(AbsolouteIndexedX));
             // BIT
-            _opcodes.Add(0x24, new BIT(new ZeroPageAddressing()));
-            _opcodes.Add(0x2C, new BIT(new AbsoluteAddressing()));
+            _opcodes.Add(0x24, new BIT(ZeroPage));
+            _opcodes.Add(0x2C, new BIT(Absoloute));
             // LSR
-            _opcodes.Add(0x4A, new LSR(new AccumulatorAddressing()));
-            _opcodes.Add(0x46, new LSR(new ZeroPageAddressing()));
-            _opcodes.Add(0x56, new LSR(new ZeroPageIndexedXAddressing()));
-            _opcodes.Add(0x4E, new LSR(new AbsoluteAddressing()));
-            _opcodes.Add(0x5E, new LSR(new IndexedXAddressing()));
+            _opcodes.Add(0x4A, new LSR(Accumulator));
+            _opcodes.Add(0x46, new LSR(ZeroPage));
+            _opcodes.Add(0x56, new LSR(ZeroPageX));
+            _opcodes.Add(0x4E, new LSR(Absoloute));
+            _opcodes.Add(0x5E, new LSR(AbsolouteIndexedX));
             // ROL
-            _opcodes.Add(0x2A, new ROL(new AccumulatorAddressing()));
-            _opcodes.Add(0x26, new ROL(new ZeroPageAddressing()));
-            _opcodes.Add(0x36, new ROL(new ZeroPageIndexedXAddressing()));
-            _opcodes.Add(0x2E, new ROL(new AbsoluteAddressing()));
-            _opcodes.Add(0x3E, new ROL(new IndexedXAddressing()));
+            _opcodes.Add(0x2A, new ROL(Accumulator));
+            _opcodes.Add(0x26, new ROL(ZeroPage));
+            _opcodes.Add(0x36, new ROL(ZeroPageX));
+            _opcodes.Add(0x2E, new ROL(Absoloute));
+            _opcodes.Add(0x3E, new ROL(AbsolouteIndexedX));
             // ROR
-            _opcodes.Add(0x6A, new ROR(new AccumulatorAddressing()));
-            _opcodes.Add(0x66, new ROR(new ZeroPageAddressing()));
-            _opcodes.Add(0x76, new ROR(new ZeroPageIndexedXAddressing()));
-            _opcodes.Add(0x6E, new ROR(new AbsoluteAddressing()));
-            _opcodes.Add(0x7E, new ROR(new IndexedXAddressing()));
+            _opcodes.Add(0x6A, new ROR(Accumulator));
+            _opcodes.Add(0x66, new ROR(ZeroPage));
+            _opcodes.Add(0x76, new ROR(ZeroPageX));
+            _opcodes.Add(0x6E, new ROR(Absoloute));
+            _opcodes.Add(0x7E, new ROR(AbsolouteIndexedX));
         }
 
         public static IOpcode GetOpcode(byte opcode)
