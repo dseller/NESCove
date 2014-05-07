@@ -191,6 +191,15 @@ namespace NESCove.MOS6502.Opcodes
             _opcodes.Add(0xC0, new CPY(Immediate));
             _opcodes.Add(0xC4, new CPY(ZeroPage));
             _opcodes.Add(0xCC, new CPY(Absolute));
+            // BCC, BCS, BEQ, BMI, BNE, BPL, BVC, BVS
+            _opcodes.Add(0x90, new BCC(Immediate));
+            _opcodes.Add(0xB0, new BCS(Immediate));
+            _opcodes.Add(0xF0, new BEQ(Immediate));
+            _opcodes.Add(0x30, new BMI(Immediate));
+            _opcodes.Add(0xD0, new BNE(Immediate));
+            _opcodes.Add(0x10, new BPL(Immediate));
+            _opcodes.Add(0x50, new BVC(Immediate));
+            _opcodes.Add(0x70, new BVS(Immediate));
         }
 
         public static IOpcode GetOpcode(byte opcode)

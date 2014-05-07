@@ -57,8 +57,16 @@
     <Compile Include="Opcodes\ADC.cs" />
     <Compile Include="Opcodes\AND.cs" />
     <Compile Include="Opcodes\ASL.cs" />
+    <Compile Include="Opcodes\BCC.cs" />
+    <Compile Include="Opcodes\BCS.cs" />
+    <Compile Include="Opcodes\BEQ.cs" />
     <Compile Include="Opcodes\BIT.cs" />
+    <Compile Include="Opcodes\BMI.cs" />
+    <Compile Include="Opcodes\BNE.cs" />
+    <Compile Include="Opcodes\BPL.cs" />
     <Compile Include="Opcodes\BRK.cs" />
+    <Compile Include="Opcodes\BVC.cs" />
+    <Compile Include="Opcodes\BVS.cs" />
     <Compile Include="Opcodes\CLC.cs" />
     <Compile Include="Opcodes\CLD.cs" />
     <Compile Include="Opcodes\CLI.cs" />
