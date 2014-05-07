@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NESCove.Core;
 using NESCove.MOS6502.Addressing;
 
 namespace NESCove.MOS6502.Opcodes
@@ -16,6 +12,8 @@ namespace NESCove.MOS6502.Opcodes
         public override int Execute(C6502 cpu, byte operand)
         {
             cpu.State.RegA = cpu.Pop();
+            SetNegative(cpu, () => Helper.IsSigned(cpu.State.RegA));
+            SetZero(cpu, () => cpu.State.RegA == 0);
             return 4;
         }
     }

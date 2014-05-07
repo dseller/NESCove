@@ -42,7 +42,6 @@ namespace NESCove.MOS6502
             set                   
             {
                 _SP = value;
-                UpdateALUFlags(_SP);
             }
         }
         /// <summary>
@@ -54,7 +53,6 @@ namespace NESCove.MOS6502
             set
             {
                 _A = value;
-                UpdateALUFlags(_A);
             }
         }
         /// <summary>
@@ -66,7 +64,6 @@ namespace NESCove.MOS6502
             set
             {
                 _X = value;
-                UpdateALUFlags(_X);
             }
         }
         /// <summary>
@@ -78,7 +75,6 @@ namespace NESCove.MOS6502
             set
             {
                 _Y = value;
-                UpdateALUFlags(_Y);
             }
         }
 
@@ -97,20 +93,5 @@ namespace NESCove.MOS6502
         {
             ProcessorStatus &= (byte)~flag;
         }
-
-        private void UpdateALUFlags(byte value)
-        {
-            // Update Negative Flag
-            if (value > 0x7F)
-                SetFlag((byte)StatusFlags.Negative);
-            else
-                ClearFlag((byte)StatusFlags.Negative);
-            // Update Zero Flag
-            if (value == 0)
-                SetFlag((byte)StatusFlags.Zero);
-            else
-                ClearFlag((byte)StatusFlags.Zero);
-        }
-
     }
 }

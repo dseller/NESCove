@@ -52,5 +52,10 @@ namespace NESCove.Core
         {
             return (int)(address / pageSize) == (int)(addressB / pageSize);
         }
+
+        public static bool IsSigned(byte value)
+        {
+            return (value & 0x80) != 0;
+        }
     }
 }

@@ -12,15 +12,12 @@ namespace NESCove.MOS6502.Opcodes
         {
             var state = cpu.State as ExecutionState;
 
-            if ((operand & 0x01) != 0)
-                cpu.State.SetFlag((byte)StatusFlags.Carry);
-            else
-                cpu.State.ClearFlag((byte)StatusFlags.Carry);
-
-            int result = operand >> 1;            
+            SetCarry(cpu, () => (operand & 0x01) != 0);
+            int result = operand >> 1;
             result &= 0xFF;
-
-            // TODO; Thank you Josh for removing the SetZero/SetNEgative again :p need to set ZERO/NEGATIVE even if it is not stored in A
+            // Negative is always set in this opcode
+            SetNegative(cpu, () => true);
+            SetZero(cpu, () => result == 0);
 
             // Hacky but it will do the trick. Accumulator Addressing is an outcast.
             if (AddressingType is AccumulatorAddressing)

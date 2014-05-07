@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NESCove.Core;
 using NESCove.MOS6502.Addressing;
 
 namespace NESCove.MOS6502.Opcodes
@@ -21,15 +17,13 @@ namespace NESCove.MOS6502.Opcodes
             if (cpu.State.IsFlagSet((byte) StatusFlags.Carry))
                 v |= 0x100;
 
-            if ((v & 0x01) != 0)
-                cpu.State.SetFlag((byte) StatusFlags.Carry);
-            else
-                cpu.State.ClearFlag((byte) StatusFlags.Carry);
 
+            SetCarry(cpu, () => (v & 0x01) != 0);
             v >>= 1;
             v &= 0xFF;
-            
-            // TODO; Thank you Josh for removing the SetZero/SetNEgative again :p need to set ZERO/NEGATIVE even if it is not stored in A
+
+            SetNegative(cpu, () => Helper.IsSigned((byte) v));
+            SetZero(cpu, () => v == 0);
 
             // Hacky but it will do the trick. Accumulator Addressing is an outcast.
             if (AddressingType is AccumulatorAddressing)

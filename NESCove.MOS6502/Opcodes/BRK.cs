@@ -17,6 +17,7 @@ namespace NESCove.MOS6502.Opcodes
         {
             // Mixed results across sites, some say 2 some say 7. I'm going to assume
             // It's 2 on the Ricoh 2A03, as less operations are done
+            // DS we really need to do something here.
             return 2;
         }
     }
